@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule      } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
-import {AuthGuard} from './Auth';
+import {AuthGuard} from './guards/auth-guard.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 //import { PlmsLineHistoryComponent } from './app/sublayout/plms-line-history/plms-line-history.component';
 //import { PLMSPlantListComponent } from './layout/plms-plant-list/plms-plant-list.component';
@@ -17,6 +17,8 @@ import {FormsModule} from '@angular/forms';
 // import { PopupComponent } from './popup/popup.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { AlertboxComponent } from './alertbox/alertbox.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 //import { PlmsSettingComponent } from './sublayout/plms-setting/plms-setting.component';
 // import { MatChipsModule } from '@angular/material/chips'
 // import { MatTabsModule } from '@angular/material/tabs';
@@ -27,6 +29,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
   declarations: [
     AppComponent,
     LoginComponent,
+    AlertboxComponent,
+    PagenotfoundComponent,
     // PopupComponent,
     // LoadindicatorComponent
   ],
@@ -40,7 +44,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     // MatTabsModule,
     // MatBadgeModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthGuard],
+  bootstrap: [AppComponent],
+  entryComponents:[AlertboxComponent]
 })
 export class AppModule { }

@@ -7,7 +7,7 @@
   <!--sensor navigation menu-->
   <div class="sensor-Nav" style="float: left;">
 
-    <mat-card *ngFor="let menu of linemenu" class="sensor-Nav-Btn" (click)="showReport(menu);setActiveParam(menu.Title)" [class.activeParam]="menu.Title==SelectedParam">
+    <mat-card *ngFor="let menu of linemenu" class="sensor-Nav-Btn" (click)="showReport(menu)" [class.activeParam]="menu.Title==SelectedParam">
       <div class="sensor-label">{{menu.Title}}</div>
     </mat-card>
 

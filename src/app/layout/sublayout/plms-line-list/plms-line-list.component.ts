@@ -14,7 +14,8 @@ export class PLMSLineListComponent implements OnInit {
   line_start:number;line_stop:number; _plantid :any;line_name:string;
   data:any[]=[];Linedata:any[]=[];showLoading:boolean=false;
   showline:boolean=false;  showsettings:boolean=false;
-  displayedColumns: string[];dataSource:any
+  displayedColumns: string[];dataSource:any;
+  line_summary:any;
 
   constructor(private _router:ActivatedRoute,
   private _navrouter:Router, private _plantservice:PlantService) { 
@@ -82,34 +83,23 @@ export class PLMSLineListComponent implements OnInit {
     if(this._plantid==4 || this._plantid==5)
     {
       this._plantservice.GetLineInfoByLineName(_param).subscribe(lineinfobylinename=>
-        {
+      {
             this.Linedata=lineinfobylinename;
             console.log(lineinfobylinename);
             this.showLoading=false;
-        });
+            this.LineSummary(_param);
+      });
     }
+  }
+
+  LineSummary(_param:any)
+  {
+    this._plantservice.GetLineSummaryByLineName(_param).subscribe(response_linesummary=>{
+      console.log(response_linesummary);
+          this.line_summary=response_linesummary;
+    })
   }
 
 }
 
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-  action: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'firdaus@zen.com.my', weight: 1.0079, symbol: 'H', action: 'd'},
-  {position: 2, name: 'kumar@zen.com.my', weight: 4.0026, symbol: 'He', action: 'd'},
-  {position: 3, name: 'zaefrul@zen.com.my', weight: 6.941, symbol: 'Li', action: 'd'},
-  {position: 4, name: 'weiwah@zen.com.my', weight: 9.0122, symbol: 'Be', action: 'd'},
-  {position: 5, name: 'khairul@zen.com.my', weight: 10.811, symbol: 'B', action: 'd'},
-  {position: 6, name: 'gary@zen.com.my', weight: 12.0107, symbol: 'C', action: 'd'},
-  {position: 7, name: 'haini@zen.com.my', weight: 14.0067, symbol: 'N', action: 'd'},
-  {position: 8, name: 'najihah@zen.com.my', weight: 15.9994, symbol: 'O', action: 'd'},
-  {position: 9, name: 'hasrul@zen.com.my', weight: 18.9984, symbol: 'F', action: 'd'},
-  {position: 10, name: 'afiq@zen.com.my', weight: 20.1797, symbol: 'Ne', action: 'd'},
-];

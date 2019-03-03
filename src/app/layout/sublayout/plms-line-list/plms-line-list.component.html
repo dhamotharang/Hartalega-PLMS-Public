@@ -173,18 +173,18 @@
                             </div>
                         </mat-card>
                     </mat-tab>
-                    <mat-tab class="line-tabs" label="Summary">
+                    <mat-tab class="line-tabs" label="Summary" *ngFor="let item of line_summary" >
                         <mat-card class="sensor">
-                            <span matBadge="21" matBadgeOverlap="false">Low Temperature Alarm</span>
+                            <span matBadge="{{item.lt_alaram}}" matBadgeOverlap="false">Low Temperature Alarm</span>
                         </mat-card>
                         <mat-card class="sensor">
-                            <span matBadge="89" matBadgeOverlap="false">Main Chain Amp Top</span>
+                            <span matBadge="{{item.mc_amp_top}}" matBadgeOverlap="false">Main Chain Amp Top</span>
                         </mat-card>
                         <mat-card class="sensor">
-                            <span matBadge="67" matBadgeOverlap="false">Main Chain Amp Bottom</span>
+                            <span matBadge="{{item.mc_amp_bottom}}" matBadgeOverlap="false">Main Chain Amp Bottom</span>
                         </mat-card>
                         <mat-card class="sensor">
-                            <span matBadge="109" matBadgeOverlap="false">Chlorine Level</span>
+                            <span matBadge="{{item.ch_level}}" matBadgeOverlap="false">Chlorine Level</span>
                         </mat-card>
                     </mat-tab>
                 </mat-tab-group>
@@ -318,7 +318,7 @@
                     </div>
                 </mat-card>
             </mat-tab>
-            <mat-tab class="line-tabs" label="Summary">
+            <!-- <mat-tab class="line-tabs" label="Summary">
                 <mat-card class="sensor">
                     <span matBadge="21" matBadgeOverlap="false">Low Temperature Alarm</span>
                 </mat-card>
@@ -330,6 +330,20 @@
                 </mat-card>
                 <mat-card class="sensor">
                     <span matBadge="109" matBadgeOverlap="false">Chlorine Level</span>
+                </mat-card>
+            </mat-tab> -->
+            <mat-tab class="line-tabs" label="Summary" *ngFor="let item of line_summary" >
+                <mat-card class="sensor">
+                    <span matBadge="{{item.lt_alaram}}" matBadgeOverlap="false">Low Temperature Alarm</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.mc_amp_top}}" matBadgeOverlap="false">Main Chain Amp Top</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.mc_amp_bottom}}" matBadgeOverlap="false">Main Chain Amp Bottom</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.ch_level}}" matBadgeOverlap="false">Chlorine Level</span>
                 </mat-card>
             </mat-tab>
         </mat-tab-group>

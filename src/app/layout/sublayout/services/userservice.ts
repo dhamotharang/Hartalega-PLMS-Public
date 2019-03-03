@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable,throwError } from 'rxjs';
-import { catchError,retry } from 'rxjs/operators'
+import { map, catchError,retry } from 'rxjs/operators'
 import { HttpClient, HttpErrorResponse,HttpHeaders} from '@angular/common/http';
 import { RequestOptions, Request, RequestMethod} from '@angular/http';
 import { UserList } from '../models/line';
@@ -14,7 +14,8 @@ export class UserService
     GetUsersList():Observable<any>
     {       
         return this._http.get<any>(url_plms.domain_url + url_plms.user_service_get)
-        .pipe(retry(3),catchError(this.handlerror));
+        .pipe(retry(3),
+        catchError(this.handlerror));
     }
     DeleteUser(login_info:UserList):Observable<any>
     {
