@@ -334,16 +334,107 @@
             </mat-tab> -->
             <mat-tab class="line-tabs" label="Summary" *ngFor="let item of line_summary" >
                 <mat-card class="sensor">
-                    <span matBadge="{{item.lt_alaram}}" matBadgeOverlap="false">Low Temperature Alarm</span>
+                    <span matBadge="{{item.B_BurnerLockout}}" matBadgeOverlap="false">B Burner</span>
                 </mat-card>
                 <mat-card class="sensor">
-                    <span matBadge="{{item.mc_amp_top}}" matBadgeOverlap="false">Main Chain Amp Top</span>
+                    <span matBadge="{{item.C_BurnerLockout}}" matBadgeOverlap="false">C Burner</span>
                 </mat-card>
                 <mat-card class="sensor">
-                    <span matBadge="{{item.mc_amp_bottom}}" matBadgeOverlap="false">Main Chain Amp Bottom</span>
+                    <span matBadge="{{item.D_BurnerLockout}}" matBadgeOverlap="false">D Burner</span>
                 </mat-card>
                 <mat-card class="sensor">
-                    <span matBadge="{{item.ch_level}}" matBadgeOverlap="false">Chlorine Level</span>
+                    <span matBadge="{{item.Z1_BurnerLockout}}" matBadgeOverlap="false">Z1 Burner</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Z2_BurnerLockout}}" matBadgeOverlap="false">Z2 Burner</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Z3_BurnerLockout}}" matBadgeOverlap="false">Z3 Burner</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Z4_BurnerLockout}}" matBadgeOverlap="false">Z4 Burner</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Z5_BurnerLockout}}" matBadgeOverlap="false">Z5 Burner</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.B_Oven}}" matBadgeOverlap="false">B Oven</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.C_Oven}}" matBadgeOverlap="false">C Oven</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.D_Oven}}" matBadgeOverlap="false">D Oven</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Z1_Oven}}" matBadgeOverlap="false">Z1 Oven</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Z2_Oven}}" matBadgeOverlap="false">Z2 Oven</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Z3_Oven}}" matBadgeOverlap="false">Z3 Oven</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Z4_Oven}}" matBadgeOverlap="false">Z4 Oven</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Z5_Oven}}" matBadgeOverlap="false">Z5 Oven</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.PreRoller_LT}}" matBadgeOverlap="false">PreRoller LT</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.PreRoller_LB}}" matBadgeOverlap="false">PreRoller LB</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.PreRoller_RT}}" matBadgeOverlap="false">PreRoller RT</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.PreRoller_RB}}" matBadgeOverlap="false">PreRoller RB</span>
+                </mat-card>
+
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Beading_Motor_LT}}" matBadgeOverlap="false">BeadingMotor LT</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Beading_Motor_LB}}" matBadgeOverlap="false">BeadingMotor LB</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Beading_Motor_RT}}" matBadgeOverlap="false">BeadingMotor RT</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Beading_Motor_RB}}" matBadgeOverlap="false">BeadingMotor RB</span>
+                </mat-card>
+
+                <mat-card class="sensor">
+                    <span matBadge="{{item.CleaningBrush_L}}" matBadgeOverlap="false">CleaningBrush Left</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.CleaningBrush_R}}" matBadgeOverlap="false">CleaningBrush Right</span>
+                </mat-card>
+
+                <mat-card class="sensor">
+                    <span matBadge="{{item.CleaningBrush_L}}" matBadgeOverlap="false">Rine Blower Left</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.CleaningBrush_R}}" matBadgeOverlap="false">Rine Blower Right</span>
+                </mat-card>
+
+                <mat-card class="sensor">
+                    <span matBadge="{{item.MC_TOP}}" matBadgeOverlap="false">Main Chain Amp Top</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.MC_BOTTOM}}" matBadgeOverlap="false">Main Chain Amp Bottom</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Latex_Status}}" matBadgeOverlap="false">Latex Level</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.Chlorine_Status}}" matBadgeOverlap="false">Chlorine Level</span>
+                </mat-card>
+                <mat-card class="sensor">
+                    <span matBadge="{{item.CGT_Status}}" matBadgeOverlap="false">Coagulant Level</span>
                 </mat-card>
             </mat-tab>
         </mat-tab-group>
