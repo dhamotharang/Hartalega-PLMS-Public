@@ -9,6 +9,7 @@ import { ActivatedRoute, Route, Router, DefaultUrlSerializer } from '@angular/ro
 import { LineService } from '../services/lineservice';
 import { ChartService } from '../services/chartservice';
 import { AnimationStyleNormalizer } from '@angular/animations/browser/src/dsl/style_normalization/animation_style_normalizer';
+import { ColumnName } from '../models/column';
 
 
 @Component({
@@ -34,12 +35,13 @@ export class PlmsLineHistoryComponent implements OnInit {
   linename: any; showburner: boolean = false; show_chart_lineinfo = false;
   linechart = []; burner_report: any;
   displayedColumns: string[]; columnsToDisplay: string[]; dataSource: any;
+  CName: any;
   constructor(private _router: ActivatedRoute, private _chartservice: ChartService,
     private _lineservice: LineService, private _con_linemenu: Line_Menu) {
     //console.log(this._con_linemenu.Line_RequestMethods_const());
     //this.default_reportname()
     //this.chart_lineinfo();
-
+    this.CName = new ColumnName();
     this.getlinename();
   }
 
