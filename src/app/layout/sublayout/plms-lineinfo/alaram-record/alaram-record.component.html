@@ -1,0 +1,67 @@
+<div class="history-col">
+
+
+  <div class="example-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="Time">
+        <th mat-header-cell *matHeaderCellDef  class="sensor-alarm-header"> Time </th>
+        <td mat-cell *matCellDef="let element" class="sensor-alarm-time-col"> {{element.Time}} </td>
+      </ng-container>
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="Burner_B">
+        <th mat-header-cell *matHeaderCellDef  class="sensor-alarm-header"> Burner B </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="(element.Burner_B>0)?'sensor-alarm-col alarm-trigger':'sensor-alarm-col'"> {{element.Burner_B}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="Burner_C">
+        <th mat-header-cell *matHeaderCellDef  class="sensor-alarm-header"> Burner C </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="(element.Burner_C>0)?'sensor-alarm-col alarm-trigger':'sensor-alarm-col'"> {{element.Burner_C}} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="Burner_D">
+        <th mat-header-cell *matHeaderCellDef  class="sensor-alarm-header"> Burner D </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="(element.Burner_D>0)?'sensor-alarm-col alarm-trigger':'sensor-alarm-col'"> {{element.Burner_D}} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Burner_Z1">
+        <th mat-header-cell *matHeaderCellDef  class="sensor-alarm-header"> Burner Z1 </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="(element.Burner_Z1>0)?'sensor-alarm-col alarm-trigger':'sensor-alarm-col'"> {{element.Burner_Z1}} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Burner_Z2">
+        <th mat-header-cell *matHeaderCellDef  class="sensor-alarm-header"> Burner Z2 </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="(element.Burner_Z2>0)?'sensor-alarm-col alarm-trigger':'sensor-alarm-col'"> {{element.Burner_Z2}} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Burner_Z3">
+        <th mat-header-cell *matHeaderCellDef  class="sensor-alarm-header"> Burner Z3 </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="(element.Burner_Z3>0)?'sensor-alarm-col alarm-trigger':'sensor-alarm-col'"> {{element.Burner_Z3}} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Burner_Z4">
+        <th mat-header-cell *matHeaderCellDef  class="sensor-alarm-header"> Burner Z4 </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="(element.Burner_Z4>0)?'sensor-alarm-col alarm-trigger':'sensor-alarm-col'"> {{element.Burner_Z4}} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Burner_Z5">
+        <th mat-header-cell *matHeaderCellDef  class="sensor-alarm-header"> Burner Z5 </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="(element.Burner_Z5>0)?'sensor-alarm-col alarm-trigger':'sensor-alarm-col'"> {{element.Burner_Z5}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  
+</div>

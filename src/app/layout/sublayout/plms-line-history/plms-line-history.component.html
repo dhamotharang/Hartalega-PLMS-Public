@@ -1,0 +1,78 @@
+<!-- <p>
+  plms-line-history works!
+</p> -->
+
+<div style="display: flex;">
+
+  <!--sensor navigation menu-->
+  <div class="sensor-Nav" style="float: left;">
+
+    <mat-card *ngFor="let menu of linemenu" class="sensor-Nav-Btn" (click)="showReport(menu);setActiveParam(menu.Title)" [class.activeParam]="menu.Title==SelectedParam">
+      <div class="sensor-label">{{menu.Title}}</div>
+    </mat-card>
+
+  </div>
+
+  <div class="history-right">
+
+    <div *ngIf="show_chart_lineinfo==true" id="mainChainAmpTopRecord" class="history-col graphLevelBody">
+      <div *ngIf="show_chart_lineinfo==true" class="" style="width: 100%;">
+        <canvas id="linechart"></canvas>
+
+        <div class="graphLevelPop">
+
+          <mat-card class="graphLevelCol"  *ngFor="let lcAmp of low_champ_amp">
+            <div class="graphLevelLabel">Maximum Value</div>
+            <div class="graphLevelValue">{{lcAmp.MaximumValue}}</div>
+          </mat-card>
+
+          <mat-card class="graphLevelCol" *ngFor="let lcAmp of low_champ_amp">
+            <div class="graphLevelLabel">Minimum Value</div>
+            <div class="graphLevelValue">{{lcAmp.MinimumValue}}</div>
+          </mat-card>
+
+          <mat-card class="graphLevelCol">
+            <div class="graphLevelLabel">Out of bound</div>
+            <div class="graphLevelValue">197</div>
+          </mat-card>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!--Burner alarm record-->
+    <div *ngIf="showburner==true" class="history-col">
+
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+          <!-- Position Column -->
+          <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+            <th mat-header-cell *matHeaderCellDef class="sensor-alarm-header"> {{column}} </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="(element[column]>0)?'sensor-alarm-col alarm-trigger' : 'sensor-alarm-col'"> {{element[column]}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <!-- <ng-container matColumnDef="Burner_Z5">
+            <th mat-header-cell *matHeaderCellDef class="sensor-alarm-header"> Burner Z5 </th>
+            <td mat-cell *matCellDef="let element"
+              [ngClass]="(element.Burner_Z5>0)?'sensor-alarm-col alarm-trigger':'sensor-alarm-col'">
+              {{element.Burner_Z5}}
+            </td>
+          </ng-container> -->
+
+          <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        </table>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  
+</div>

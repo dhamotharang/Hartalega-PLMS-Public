@@ -1,0 +1,165 @@
+.bg-Good { background-color: #47d065; }
+.bg-Bad { background-color: #f44336; }
+.bg-Maintenance { background-color: #ffc107; }
+.bg-Inactive { background-color: #d8d8d8; }
+
+.bg-Good:hover { background-color: #28a042; }
+.bg-Bad:hover { background-color: #c72f24; }
+
+
+.fwidth { width: 100%; }
+.clMain { display: flex; }
+
+.line-list-card { 
+    width: calc(25% - 33px);
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid white;
+    border-top: 0;
+    border-right: 0;
+    cursor: pointer;
+}
+
+.line-tabs {
+    background-color: #fff;
+}
+
+.line-list {
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+}
+
+.line-no {
+    color: white;
+    font-size: 0.75em;
+    font-weight: bold;
+    text-shadow: 0 0 2px #0000007d;
+}
+
+.line-status {
+    display: table;
+    width: 100%;
+    height: calc(100% - 15px);
+}
+
+.line-value {
+    display: table-cell;
+    text-align: center;
+    width: 100%;
+    vertical-align: middle;
+    font-size: 2.5em;
+    color: white;
+}
+
+.line-summary {
+    background: white;
+    width: 500px;
+    display: none;
+}
+
+.info-btn {
+    background-color: #828282;
+    width: 15px;
+    color: white;
+    font-size: 2em;
+    text-align: center;
+}
+
+.sensor {
+    background: #f9f9f9;
+    padding: 10px 15px;
+    border-radius: 0;
+}
+
+.sensor-title {
+    font-size: 0.75em;
+    margin-bottom: 5px;
+}
+
+.sensor-column {
+    display: flex;
+}
+
+.sensor-value {
+    width: calc(100% / 8);
+    padding: 5px;
+    margin: 0 3px;
+    font-size: 0.75em;
+    color: white;
+    text-align: center;
+    border-radius: 2px;
+}
+
+.sensor-value:hover {
+    cursor: pointer;
+}
+
+
+/* Structure */
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+
+  .settingBody {
+    padding: 30px;
+    background: white;
+    height: 100%;
+}
+
+.settingContent {
+    display: flex;
+}
+
+.settingListCard {
+    width: 100%;
+}
+
+.settingFormCard {
+    width: 400px;
+}
+
+
+.historyMobile {display: none;}
+
+.mobileSummary {
+    background: white;
+    display: none;
+}
+
+@media screen and (max-width: 500px) {
+.mobileSummary {
+    background: white;
+}
+    .mat-card {
+        padding: 0 !important;
+    }
+    .line-trig {
+        top: 15px;
+        right: 15px;
+    }
+    .line-list-card { 
+        width: 100% !important; 
+        min-height: 70px;
+    }
+    .line-status {
+        width: auto !important;
+        margin: auto;
+        padding: 18px;
+        height: auto;
+    }
+    .line-no { 
+        position: absolute;
+    padding: 25px 0;
+    left: 15px;
+    }
+    .info-btn { display: none; }
+    .line-summary { display: none; }
+    .line-value { font-size: 1.8em !important; }
+}

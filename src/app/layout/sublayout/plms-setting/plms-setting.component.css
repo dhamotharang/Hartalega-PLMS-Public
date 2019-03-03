@@ -1,0 +1,29 @@
+/* Structure */
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+
+  .settingBody {
+    padding: 30px;
+    background: white;
+    height: calc(100% - 60px);
+    width: calc(100vw - 120px);
+}
+
+.settingContent {
+    display: flex;
+}
+
+.settingListCard {
+    width: 100%;
+}
+
+.settingFormCard {
+    width: 400px;
+}

@@ -1,0 +1,14 @@
+.fwidth { width: 100%; }
+.fheight { height: 100%; }
+
+.header {
+    border-radius: 0 !important;
+    height: calc(100px - 64px);
+    justify-content: space-between;
+    display: flex;
+}
+
+.logo:hover {
+    cursor: pointer;
+ }
+

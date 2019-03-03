@@ -1,0 +1,14 @@
+<div class="plant-Nav clMain">
+
+  <mat-card class="plant-Nav-Btn" *ngFor="let item of data" [style.backgroundColor]="categoryColor"
+    (click)="setActiveNav(item.Id)" [class.active]="item.Id==SelectedPlant" [routerLink] = "['/MainScreen/home',item.Id]" >
+    <div class="plant-label">{{item.Id}}</div>
+  </mat-card>
+
+  <mat-card class="plant-Nav-Btn setting-nav-Btn">
+      <div class="plant-label" [routerLink] = "['./settings']"><i class="fas fa-sliders-h" style="font-size: 1.5em;"></i></div>
+    </mat-card>
+
+</div>
+
+

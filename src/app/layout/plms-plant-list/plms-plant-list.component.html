@@ -1,0 +1,26 @@
+<div class="clMain">
+  
+  <mat-card *ngFor="let item of data" ngClass="cl7 plant-card bg-img-p bg-img-{{item.Id}}" >
+    <div class="plant-label" [routerLink] = "['home',item.Id]" >{{item.Id}}</div>
+  </mat-card>
+
+  <!-- <mat-card class="cl7 plant-card bg-img-p bg-img-2">
+    <div class="plant-label">2</div>
+  </mat-card>
+  <mat-card class="cl7 plant-card bg-img-p bg-img-3">
+    <div class="plant-label">3</div>
+  </mat-card>
+  <mat-card class="cl7 plant-card bg-img-p bg-img-4">
+    <div class="plant-label">4</div>
+  </mat-card>
+  <mat-card class="cl7 plant-card bg-img-p bg-img-5">
+    <div class="plant-label">5</div>
+  </mat-card>
+  <mat-card class="cl7 plant-card bg-img-p bg-img-6">
+    <div class="plant-label">6</div>
+  </mat-card>
+  <mat-card class="cl7 plant-card bg-img-p bg-img-7">
+    <div class="plant-label">7</div>
+  </mat-card> -->
+
+</div>

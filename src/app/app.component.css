@@ -1,0 +1,2 @@
+.content-line-list {display: flex;height: calc(100% - 68px);}
+.list-body {width: calc(100% - 60px);}
