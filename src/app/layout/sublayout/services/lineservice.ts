@@ -25,6 +25,8 @@ export class LineService
         .pipe(retry(3),catchError(this.handlerror));
     }
 
+    
+
     private handlerror(error_res:HttpErrorResponse)
     {
           if(error_res.error instanceof ErrorEvent){console.error('Client Side Error :',error_res.error.message)}

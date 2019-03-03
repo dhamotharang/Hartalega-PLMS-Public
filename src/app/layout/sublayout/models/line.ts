@@ -155,7 +155,8 @@ export class Line_Menu
 }
 export class Describer 
 {
-    static describe(instance): Array<string> {
+    static describe(instance): Array<string> 
+    {
         return Object.getOwnPropertyNames(instance);
     }
 }

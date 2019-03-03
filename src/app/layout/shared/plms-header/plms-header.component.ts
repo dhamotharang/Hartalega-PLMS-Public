@@ -24,4 +24,11 @@ export class PLMSHeaderComponent implements OnInit {
     this.router.navigate(['MainScreen']);  
   }
 
+  logout()
+  {
+    localStorage.clear();
+    //localStorage.setItem('loginname',"");
+    this.router.navigate(['']);
+  }
+
 }

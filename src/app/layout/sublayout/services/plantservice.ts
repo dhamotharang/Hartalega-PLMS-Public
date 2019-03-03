@@ -22,12 +22,17 @@ export class PlantService
 
     GetLineInfoByLineName(linename:string):Observable<any>
     {
-        console.log('linename'+linename);
+        //console.log('linename'+linename);
         //console.log('lineid'+lineid);
         return this._http.get<any>(url_plms.domain_url+url_plms.plant_GetIndividual_LineInfo+linename)
         .pipe(retry(3),catchError(this.handlerror));
     }
-
+    GetLineSummaryByLineName(lineid:string):Observable<any>
+    {
+        //console.log('lineid'+lineid);
+        return this._http.get<any>(url_plms.domain_url+url_plms.Plant_GetIndividual_LineInfoSummary+lineid)
+        .pipe(retry(3),catchError(this.handlerror));
+    }
     GetPlantsList():Observable<any>
     {
         const httpOptions = {

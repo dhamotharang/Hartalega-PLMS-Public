@@ -14,9 +14,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
   
-  .activeParam {
-    background: #124b87 !important;
-}
+  
   
   .graphLevelBody {
       width: calc(100% - 100px);
@@ -101,3 +99,5 @@
   td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type, th.mat-header-cell:last-of-type {
       padding-right: 0 !important;
   }
+
+  .paramActive { background-color: #24353e; }

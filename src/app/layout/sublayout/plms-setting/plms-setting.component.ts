@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 import {UserList,Describer} from '../models/line';
-import {UserService} from '../services/userservice'
+import {UserService} from '../services/userservice';
+import {AlertboxComponent} from '../../../alertbox/alertbox.component'
+import {
+  MatDialog,
+  MatDialogConfig
+} from "@angular/material";
 
 
 @Component({
@@ -15,8 +20,7 @@ export class PlmsSettingComponent implements OnInit {
   linename:string;showburner:boolean=false;show_chart_lineinfo:boolean=false;
   Chart = [];burner_report:any ;
   displayedColumns:string[];columnsToDisplay:string[];dataSource:any;
-
-  constructor(private _userService:UserService) { }
+  constructor(private _userService:UserService,private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getUsersList();
@@ -56,14 +60,37 @@ export class PlmsSettingComponent implements OnInit {
   }
   Delete(_param:any,_action:any)
   {
-    console.log(_param);
-    this._userService.DeleteUser(_param).subscribe(res_userdelete=>
-    {
-        console.log(res_userdelete);
-        this.getUsersList();
+    //console.log(_param);
+    this.openDialog(_param);
+    // console.log(_param);
+    // this._userService.DeleteUser(_param).subscribe(res_userdelete=>
+    // {
+    //     console.log(res_userdelete);
+    //     this.getUsersList();
         
-      })
+    //   })
   }
+
+  openDialog(_param:any) 
+  {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {name:_param._email};
+    //console.log(dialogConfig.data);
+    let dialogRef = this.dialog.open(AlertboxComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(value => 
+    {
+      if(value==_param._email)
+      {
+        this._userService.DeleteUser(_param).subscribe(res_userdelete=>
+        {
+          console.log(res_userdelete);
+          this.getUsersList();
+          
+        })
+      }
+    });
+  }
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -80,3 +107,5 @@ export class PlmsSettingComponent implements OnInit {
   }
 
 }
+
+

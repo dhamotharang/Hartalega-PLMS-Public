@@ -4,7 +4,7 @@
     </div>
     <div class="logged-user">
         <mat-chip-list>
-            <mat-chip>{{loginname}}</mat-chip>
+            <mat-chip (click)="logout()">{{loginname}}</mat-chip>
         </mat-chip-list>
     </div>
 </mat-card>
