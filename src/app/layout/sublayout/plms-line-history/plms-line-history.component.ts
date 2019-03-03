@@ -184,6 +184,9 @@ export class PlmsLineHistoryComponent implements OnInit
     console.log(_requestname);
     this._lineservice.GetLineInfo(_lineName,_requestname).subscribe(lineinfobylinename=>
       {
+        lineinfobylinename.slice().forEach(element => {
+          element['Datetime_Hours'] = this.CName.HourFormat(element['Datetime_Hours'])
+        });
         this.dataSource=lineinfobylinename;
           console.log(this.dataSource);         
       });
