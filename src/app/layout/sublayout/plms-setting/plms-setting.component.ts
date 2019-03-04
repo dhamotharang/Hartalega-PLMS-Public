@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 import {UserList,Describer} from '../models/line';
 import {UserService} from '../services/userservice';
-import {AlertboxComponent} from '../../../alertbox/alertbox.component'
+import {AlertboxComponent} from '../../../alertbox/alertbox.component';
+import {MatSnackBar} from '@angular/material';
+
 import {
   MatDialog,
   MatDialogConfig
@@ -20,7 +22,8 @@ export class PlmsSettingComponent implements OnInit {
   linename:string;showburner:boolean=false;show_chart_lineinfo:boolean=false;hideme:boolean=false;
   Chart = [];burner_report:any ;
   displayedColumns:string[];columnsToDisplay:string[];dataSource:any;
-  constructor(private _userService:UserService,private dialog: MatDialog) { }
+  constructor(private _userService:UserService,private snackBar: MatSnackBar,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getUsersList();
@@ -58,9 +61,16 @@ export class PlmsSettingComponent implements OnInit {
     this._userService.UpDateUser(register).subscribe(res_savedata=>{
       console.log(res_savedata);
       this.getUsersList();
-    })  
-     
+    })   
   }
+
+  alertmessage(message:string)
+  {
+    this.snackBar.open(message, "Ok", {
+      duration: 2000,
+    });
+  }
+
   Delete(_param:any,_action:any)
   {
     this.openDialog(_param);
@@ -78,6 +88,7 @@ export class PlmsSettingComponent implements OnInit {
       {
         this._userService.DeleteUser(_param).subscribe(res_userdelete=>
         {
+          console.log('DeleteUser');
           console.log(res_userdelete);
           this.getUsersList();
           
