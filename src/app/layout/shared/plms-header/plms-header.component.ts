@@ -26,6 +26,7 @@ export class PLMSHeaderComponent implements OnInit {
 
   logout()
   {
+    console.log('Clearing Session');
     localStorage.clear();
     //localStorage.setItem('loginname',"");
     this.router.navigate(['']);

@@ -9,24 +9,35 @@ import { Route,ActivatedRoute, Router } from '@angular/router'
   providers:[PlantService]
 })
 export class PLMSPlantNavComponent implements OnInit {
-  
+  public IsAdmin = false;
   data:any;
   categoryColor:string;
   SelectedPlant:any;
   currentPlant:any
 
-  constructor(private _plantservice:PlantService,private route:ActivatedRoute) { 
+  constructor(private _plantservice:PlantService,private route:ActivatedRoute) 
+  { 
     
     console.log('PLMSPlantNavComponent');
   }
 
   ngOnInit() 
   {
+    console.log('PLMSPlantNavComponent2');
+    this.ShowHideSettingMenu();
     this.data = this. getpalntlist();  
-
     //set default active nav
     this.currentPlant = this.route.snapshot.paramMap.get('id');
     this.setActiveNav(this.currentPlant);
+  }
+
+  ShowHideSettingMenu()
+  {
+    if(localStorage.getItem('role')=='Admin')
+    {
+      console.log('Is Admin.');
+      this.IsAdmin =true;
+    }else{this.IsAdmin =false;}
   }
 
   getpalntlist():any

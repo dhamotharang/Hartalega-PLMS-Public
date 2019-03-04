@@ -1,5 +1,6 @@
-//export const domain_url:string='http://sphybrid.zen.com.my/plms/api/';
-export const domain_url:string='http://localhost:9880/api/';
+// export const domain_url:string='http://project-app.zen.com.my/plms/api/';
+//export const domain_url:string='http://localhost:9880/api/';
+export const domain_url:string='http://sphybrid.zen.com.my/plms/api/';
 
 
 // userservice.ts with PlmsLogin ApiController

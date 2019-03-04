@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit
           if(this._email==login_response['_email'])
           {
             localStorage.setItem('loginname', this._email);
+            localStorage.setItem('role', login_response['_role']);
             this.router.navigate(['MainScreen'],{queryParams:{'login_name':this._email}});
           }
           else

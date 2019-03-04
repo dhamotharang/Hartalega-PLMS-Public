@@ -5,9 +5,10 @@
     <div class="plant-label">{{item.Id}}</div>
   </mat-card>
 
-  <mat-card class="plant-Nav-Btn setting-nav-Btn">
-      <div class="plant-label" [routerLink] = "['./settings']"><i class="fas fa-sliders-h" style="font-size: 1.5em;"></i></div>
-    </mat-card>
+  <mat-card *ngIf="IsAdmin" class="plant-Nav-Btn setting-nav-Btn" >
+      <div *ngIf="IsAdmin" class="plant-label" [routerLink] = "['./settings']">
+        <i class="fas fa-sliders-h" style="font-size: 1.5em;"></i></div>
+  </mat-card>
 
 </div>
 

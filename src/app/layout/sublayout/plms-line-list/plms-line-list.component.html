@@ -12,9 +12,9 @@
 <div style="display: flex;height: 100%; width: calc(100vw - 60px);" *ngIf="showline">
 
     <div class="clMain line-list">
-        <!-- <mat-card class="line-list-card" *ngFor="let item of data" (click)="LineInfo(item)" [ngStyle]="{'background-color': item.LineColor}"> -->
-        <mat-card class="line-list-card bg-Good" onclick="myFunction()" *ngFor="let item of data" ng-disabled='disabled'
-            (click)="LineInfo(item.LineName)" [ngStyle]="{'background-color': item.LineColor}">
+        <mat-card class="line-list-card" *ngFor="let item of data" (click)="LineInfo(item.LineName)" [ngStyle]="{'background-color': item.LineColor}">
+        <!-- <mat-card class="line-list-card bg-Good" onclick="myFunction()" *ngFor="let item of data" ng-disabled='disabled' -->
+            <!-- (click)="LineInfo(item.LineName)" [ngStyle]="{'background-color': item.LineColor}"> -->
             <!-- <div class="line-no">{{item.line_name}}</div>
             <div class="line-status">
                 <div class="line-value">{{item.plant_id}}</div>
@@ -173,7 +173,7 @@
                             </div>
                         </mat-card>
                     </mat-tab>
-                    <mat-tab class="line-tabs" label="Summary" *ngFor="let item of line_summary" >
+                    <!-- <mat-tab class="line-tabs" label="Summary" *ngFor="let item of line_summary" >
                         <mat-card class="sensor">
                             <span matBadge="{{item.lt_alaram}}" matBadgeOverlap="false">Low Temperature Alarm</span>
                         </mat-card>
@@ -186,7 +186,7 @@
                         <mat-card class="sensor">
                             <span matBadge="{{item.ch_level}}" matBadgeOverlap="false">Chlorine Level</span>
                         </mat-card>
-                    </mat-tab>
+                    </mat-tab> -->
                 </mat-tab-group>
             </div>
 

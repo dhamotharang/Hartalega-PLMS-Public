@@ -14,6 +14,7 @@ export class PlantService
 
     GetLinesPlantByID(plantid:number):Observable<any>
     {       
+        console.log(url_plms.domain_url+url_plms.plant_service_get+plantid);
         return this._http.get<any>(url_plms.domain_url+url_plms.plant_service_get+plantid)
         .pipe(retry(3),catchError(this.handlerror));
     }
@@ -23,7 +24,7 @@ export class PlantService
     GetLineInfoByLineName(linename:string):Observable<any>
     {
         //console.log('linename'+linename);
-        //console.log('lineid'+lineid);
+        //console.log(url_plms.domain_url+url_plms.plant_service_get+plantid);
         return this._http.get<any>(url_plms.domain_url+url_plms.plant_GetIndividual_LineInfo+linename)
         .pipe(retry(3),catchError(this.handlerror));
     }
