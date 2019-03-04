@@ -24,6 +24,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 // import { MatTabsModule } from '@angular/material/tabs';
 // import { MatBadgeModule } from '@angular/material/badge';
 //import { LoadindicatorComponent } from './layout/sublayout/loadindicator/loadindicator.component'
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     // MatTabsModule,
     // MatBadgeModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard,{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent],
   entryComponents:[AlertboxComponent]
 })

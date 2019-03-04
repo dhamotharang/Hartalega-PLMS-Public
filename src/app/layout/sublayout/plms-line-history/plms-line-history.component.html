@@ -16,9 +16,10 @@
   <div class="history-right">
 
     <div *ngIf="show_chart_lineinfo==true" id="mainChainAmpTopRecord" class="history-col graphLevelBody">
-      <div *ngIf="show_chart_lineinfo==true" class="" style="width: 100%;">
-        <canvas id="linechart"></canvas>
-
+      <div *ngIf="show_chart_lineinfo==true" style="width: 800px;">
+        <div>
+          <canvas id="linechart"></canvas>
+        </div>
         <div class="graphLevelPop">
 
           <mat-card class="graphLevelCol"  *ngFor="let lcAmp of low_champ_amp">

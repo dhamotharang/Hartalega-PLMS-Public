@@ -17,7 +17,7 @@ import {
 })
 export class PlmsSettingComponent implements OnInit {
   _lineobj:any;_linefields:any;_registeremail:string;
-  linename:string;showburner:boolean=false;show_chart_lineinfo:boolean=false;
+  linename:string;showburner:boolean=false;show_chart_lineinfo:boolean=false;hideme:boolean=false;
   Chart = [];burner_report:any ;
   displayedColumns:string[];columnsToDisplay:string[];dataSource:any;
   constructor(private _userService:UserService,private dialog: MatDialog) { }
@@ -48,7 +48,7 @@ export class PlmsSettingComponent implements OnInit {
   {
     console.log(_param);
   }
-  InternalCheck(_param:any,_action:any)
+  IsAdmin(_param:any,_action:any)
   {  
     console.log(_action);
     switch(_action)
@@ -60,15 +60,7 @@ export class PlmsSettingComponent implements OnInit {
   }
   Delete(_param:any,_action:any)
   {
-    //console.log(_param);
     this.openDialog(_param);
-    // console.log(_param);
-    // this._userService.DeleteUser(_param).subscribe(res_userdelete=>
-    // {
-    //     console.log(res_userdelete);
-    //     this.getUsersList();
-        
-    //   })
   }
 
   openDialog(_param:any) 

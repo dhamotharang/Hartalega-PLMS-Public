@@ -14,13 +14,19 @@ export class ChartService
     constructor(private _http:HttpClient) { }
     GetLineChart(_name:string):Observable<any>
     {       
+        
         if(_name=='Main Chain Amp Top')
-        return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_GetLineChartTop)
-        .pipe(retry(3),catchError(this.handlerror));
-
+        {
+            console.log(url_plms.domain_url+url_plms.chart_service_GetLineChartTop);
+            return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_GetLineChartTop)
+            .pipe(retry(3),catchError(this.handlerror));
+        }
         else
-        return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_GetLineChartBottom)
-        .pipe(retry(3),catchError(this.handlerror));
+        {
+            console.log(url_plms.domain_url+url_plms.chart_service_GetLineChartBottom);
+            return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_GetLineChartBottom)
+            .pipe(retry(3),catchError(this.handlerror));
+        }
     }
 
     GetLowChampAmp(_name:string):Observable<any>

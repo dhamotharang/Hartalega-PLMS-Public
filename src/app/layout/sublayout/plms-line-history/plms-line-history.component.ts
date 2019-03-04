@@ -51,7 +51,7 @@ export class PlmsLineHistoryComponent implements OnInit
 
     this.CurrentParam = this._router.snapshot.paramMap.get('_historyreportname');
     console.log('this is param ' + this._router.snapshot.paramMap.get('linename'));
-    this.setActiveParam(this.CurrentParam.Title);
+    //this.setActiveParam(this.CurrentParam.Title);
     //this.chart_apis()
     //this.default_reportname()
     //this.chart_lineinfo();
@@ -72,25 +72,30 @@ export class PlmsLineHistoryComponent implements OnInit
   }
   chart_apis(_name:string)
   {
-    this._chartlabels=[];
-    this._chartlabels=[];
-    this._chartdata=[];
-    this._charttop=[];
-    this._chartbottom=[];
-    this.chart =[];
-  this._chartservice.GetLineChart(_name).subscribe(res_linechartdata=>
-  {
-    res_linechartdata.forEach(element => {
-      this._chartlabels.push(element._time);
-      this._chartdata.push(element._avg);
-      this._charttop.push(element._top);
-      this._chartbottom.push(element._bottom);
-
-      this.chart_lineinfo(); 
-      this.low_champ_maxmin(_name);
-    });
-    //console.log(this._chartlabels);
-  })
+    console.log(_name);
+    // this._chartlabels=[];
+    this._chartbottom.length=this._chartdata.length=this._chartlabels.length=0;
+    this._charttop.length=this._chartbottom.length=0;
+    
+    // this._chartdata=[];
+    // this._charttop=[];
+    // this._chartbottom=[];
+    //this.chart =[];
+    this.chart.length=0;
+    this._chartservice.GetLineChart(_name).subscribe(res_linechartdata=>
+    {
+      res_linechartdata.forEach(element => 
+      {
+        console.log(element);
+        this._chartlabels.push(element._time);
+        this._chartdata.push(element._avg);
+        this._charttop.push(element._top);
+        this._chartbottom.push(element._bottom);    
+        this.chart_lineinfo(); 
+        //this.low_champ_maxmin(_name);
+      });
+      //console.log(this._chartlabels);
+    })
   }
   default_reportname()
   {
@@ -153,26 +158,26 @@ export class PlmsLineHistoryComponent implements OnInit
 
       case "Main Chain Amp Top": 
       { 
-        this.linechart=null;
+        this.linechart=null;this.showburner=false;
         //this._lineobj=new Line_RinseBlower();this.getColumns(_reportname.method);
         this.show_chart_lineinfo=true;
         //this.chart_lineinfo();  
         //this.show_chart_lineinfo=true;
-        this.chart_apis(_reportname);   
+        this.chart_apis(_reportname.Title);   
               
-        this.showburner=false;
+        
          break; 
       }
 
       case "Main Chain Amp Bottom": 
       { 
-        this.linechart=null;
+        this.linechart=null;this.showburner=false;
         this.show_chart_lineinfo=true;
         //this.chart_lineinfo();  
         //this.show_chart_lineinfo=true;
-        this.chart_apis(_reportname);   
+        this.chart_apis(_reportname.Title);   
               
-        this.showburner=false;
+        //
          break; 
       }
     }
@@ -206,6 +211,8 @@ export class PlmsLineHistoryComponent implements OnInit
     //let chart=new Chart()
     this.linechart = new Chart('linechart', {
       type: 'line',
+      responsive: true,
+      maintainAspectRatio: false,
       data: {
         labels:this._chartlabels,
         // labels: ['7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM', '8PM', '9PM', '10PM', '11PM', '12AM', '1AM', '2AM', '3AM', '4AM', '5AM', '6AM'],
@@ -247,10 +254,11 @@ export class PlmsLineHistoryComponent implements OnInit
           mode: 'index',
           intersect: false,
         },
-        hover: {
-          mode: 'nearest',
-          intersect: true
-        },
+        // hover: {
+        //   mode: 'nearest',
+        //   intersect: true,
+        //   animations:false
+        // },
         scales: {
           xAxes: [{
             display: true,

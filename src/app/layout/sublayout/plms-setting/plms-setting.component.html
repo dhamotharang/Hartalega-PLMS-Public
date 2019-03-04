@@ -17,17 +17,18 @@
               <td mat-cell *matCellDef="let element"> {{element._email}} </td>
             </ng-container>
         
-            <ng-container matColumnDef="_internal">
-                <th mat-header-cell *matHeaderCellDef width="100px"> Internal </th>
+            <ng-container matColumnDef="_internal" >
+                <th mat-header-cell *matHeaderCellDef width="100px"> IsAdmin </th>
                 <td mat-cell *matCellDef="let element"> 
-                   <mat-checkbox [checked]= "element._internal" (click)="InternalCheck(element,'Internalcheck')"></mat-checkbox>                 
+                   <mat-checkbox [checked]= "element._internal" (click)="IsAdmin(element,'Internalcheck')"></mat-checkbox>
                 </td>
             </ng-container>
             
             <ng-container matColumnDef="_external">
                 <th mat-header-cell *matHeaderCellDef> External </th>
                 <td mat-cell *matCellDef="let element"> 
-                  <mat-checkbox [checked]= "element._external" (click)="InternalCheck(element,'Externalcheck')"></mat-checkbox> 
+                  <!-- <mat-checkbox [checked]= "element._external" (click)="InternalCheck(element,'Externalcheck')"></mat-checkbox>  -->
+                  <mat-checkbox [checked]= "element._external" ></mat-checkbox>
                 </td>
             </ng-container>
 
@@ -35,7 +36,8 @@
                 <th mat-header-cell *matHeaderCellDef> Active </th>
                 <td mat-cell *matCellDef="let element"> 
                   <!-- {{element._isactive}}  -->
-                  <mat-checkbox [checked]= "element._isactive" (click)="InternalCheck(element,'ActiveCheck')"></mat-checkbox> 
+                  <!-- <mat-checkbox [checked]= "element._isactive" (click)="InternalCheck(element,'ActiveCheck')"></mat-checkbox>  -->
+                  <mat-checkbox [checked]= "element._isactive"></mat-checkbox>
                 </td>
             </ng-container>
 
