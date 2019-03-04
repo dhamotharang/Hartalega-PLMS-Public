@@ -17,6 +17,22 @@ export class UserService
         .pipe(retry(3),
         catchError(this.handlerror));
     }
+
+    UpDateUser(userInfo:UserList):Observable<any>
+    {
+        let httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/json',
+              'Accept':'application/json',
+              'Access-Control-Allow-Origin':'*',
+              'Access-Control-Allow-Method':'PUT',
+              'Access-Control-Allow-Headers': 'Origin, Content-Type',                 
+            })
+          };
+        return this._http.post(url_plms.domain_url +url_plms.user_service_update,JSON.stringify(userInfo),httpOptions)
+        .pipe(retry(3),catchError(this.handlerror));
+    }
+
     DeleteUser(login_info:UserList):Observable<any>
     {
         var _smaccountname = login_info._email.split('@').slice(0);

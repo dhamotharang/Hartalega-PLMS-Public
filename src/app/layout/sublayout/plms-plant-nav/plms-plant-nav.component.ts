@@ -18,12 +18,12 @@ export class PLMSPlantNavComponent implements OnInit {
   constructor(private _plantservice:PlantService,private route:ActivatedRoute) 
   { 
     
-    console.log('PLMSPlantNavComponent');
+    //console.log('PLMSPlantNavComponent');
   }
 
   ngOnInit() 
   {
-    console.log('PLMSPlantNavComponent2');
+    // console.log('PLMSPlantNavComponent2');
     this.ShowHideSettingMenu();
     this.data = this. getpalntlist();  
     //set default active nav
@@ -35,7 +35,7 @@ export class PLMSPlantNavComponent implements OnInit {
   {
     if(localStorage.getItem('role')=='Admin')
     {
-      console.log('Is Admin.');
+      // console.log('Is Admin.');
       this.IsAdmin =true;
     }else{this.IsAdmin =false;}
   }
@@ -44,7 +44,7 @@ export class PLMSPlantNavComponent implements OnInit {
   {
     this._plantservice.GetPlantsList().subscribe(data=>
     {
-        console.log(data);
+        // console.log(data);
     });
 
     let page;

@@ -20,7 +20,7 @@ export class LineService
     
     GetLineInfo(lineid:string,requestname:string):Observable<any>
     {
-        console.log('lineid'+lineid);
+        // console.log('lineid'+lineid);
         return this._http.get<any>(url_plms.domain_url+"/Line/"+requestname+"/"+lineid)
         .pipe(retry(3),catchError(this.handlerror));
     }

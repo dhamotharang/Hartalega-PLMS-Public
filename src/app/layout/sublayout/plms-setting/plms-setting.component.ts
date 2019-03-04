@@ -44,19 +44,22 @@ export class PlmsSettingComponent implements OnInit {
     //this.dataSource = new MatTableDataSource(ELEMENT_DATA);
   }
   
-  selectedRow(_param:any)
-  {
-    console.log(_param);
-  }
+  // selectedRow(_param:any)
+  // {
+  //   console.log(_param);
+  // }
   IsAdmin(_param:any,_action:any)
   {  
-    console.log(_action);
-    switch(_action)
-    {
-      case "Delete":
-      _param._isactive=1;
-      
-    }   
+    let register=new UserList();
+    register._email=_param._email;
+    if(_param._internal==1){register._internal=0}
+    if(_param._internal==0){register._internal=1}
+    console.log(JSON.stringify(register));
+    this._userService.UpDateUser(register).subscribe(res_savedata=>{
+      console.log(res_savedata);
+      this.getUsersList();
+    })  
+     
   }
   Delete(_param:any,_action:any)
   {
@@ -83,9 +86,7 @@ export class PlmsSettingComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+  
   SaveEmail()
   {
     //console.log(this._registeremail);

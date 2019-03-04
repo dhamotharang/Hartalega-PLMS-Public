@@ -50,7 +50,7 @@ export class PlmsLineHistoryComponent implements OnInit
     this.getlinename();
 
     this.CurrentParam = this._router.snapshot.paramMap.get('_historyreportname');
-    console.log('this is param ' + this._router.snapshot.paramMap.get('linename'));
+    //console.log('this is param ' + this._router.snapshot.paramMap.get('linename'));
     //this.setActiveParam(this.CurrentParam.Title);
     //this.chart_apis()
     //this.default_reportname()
@@ -72,7 +72,7 @@ export class PlmsLineHistoryComponent implements OnInit
   }
   chart_apis(_name:string)
   {
-    console.log(_name);
+    //console.log(_name);
     // this._chartlabels=[];
     this._chartbottom.length=this._chartdata.length=this._chartlabels.length=0;
     this._charttop.length=this._chartbottom.length=0;
@@ -82,31 +82,31 @@ export class PlmsLineHistoryComponent implements OnInit
     // this._chartbottom=[];
     //this.chart =[];
     this.chart.length=0;
-    this._chartservice.GetLineChart(_name).subscribe(res_linechartdata=>
+    this._chartservice.GetLineChart(_name,this.linename).subscribe(res_linechartdata=>
     {
       res_linechartdata.forEach(element => 
       {
-        console.log(element);
+        //console.log(element);
         this._chartlabels.push(element._time);
         this._chartdata.push(element._avg);
         this._charttop.push(element._top);
         this._chartbottom.push(element._bottom);    
-        this.chart_lineinfo(); 
-        //this.low_champ_maxmin(_name);
+        this.chart_lineinfo(_name); 
+        this.low_champ_maxmin(_name,this.linename);
       });
       //console.log(this._chartlabels);
     })
   }
   default_reportname()
   {
-    console.log(this._router.snapshot.paramMap.get('_historyreportname'));
+    //console.log(this._router.snapshot.paramMap.get('_historyreportname'));
     this.showReport(this._router.snapshot.paramMap.get('_historyreportname'));
   }
   getColumns(_requestname:string)
   {   
     this._linefields = Describer.describe(this._lineobj);
     this.displayedColumns=this._linefields;
-    console.log(this.displayedColumns);
+    //console.log(this.displayedColumns);
     this.columnsToDisplay = this.displayedColumns.slice();  
     this.BurnerReport(this.linename,_requestname);
   }
@@ -114,7 +114,7 @@ export class PlmsLineHistoryComponent implements OnInit
   {
     this._lineobj=null;this.dataSource=null;
 
-    console.log(_reportname.Title);
+    //console.log(_reportname.Title);
 
     switch(_reportname.Title) 
     { 
@@ -186,27 +186,27 @@ export class PlmsLineHistoryComponent implements OnInit
   
   BurnerReport(_lineName:string,_requestname:string)
   {
-    console.log(_requestname);
+    //console.log(_requestname);
     this._lineservice.GetLineInfo(_lineName,_requestname).subscribe(lineinfobylinename=>
       {
         lineinfobylinename.slice().forEach(element => {
           element['Datetime_Hours'] = this.CName.HourFormat(element['Datetime_Hours'])
         });
         this.dataSource=lineinfobylinename;
-          console.log(this.dataSource);         
+          //console.log(this.dataSource);         
       });
   }
   linemenu:string[]=this._con_linemenu.Line_RequestMethods_const();
 
-  low_champ_maxmin(_param:string)
+  low_champ_maxmin(_param:string,linename:string)
   {
-    this._chartservice.GetLowChampAmp(_param).subscribe(data_lowchampamp=>
+    this._chartservice.GetLowChampAmp(_param,linename).subscribe(data_lowchampamp=>
       {
       this.low_champ_amp=data_lowchampamp;
-      console.log(data_lowchampamp);
+      //console.log(data_lowchampamp);
     })
   }
-  chart_lineinfo()
+  chart_lineinfo(_chartheader:string)
   { 
     //let chart=new Chart()
     this.linechart = new Chart('linechart', {
@@ -248,7 +248,7 @@ export class PlmsLineHistoryComponent implements OnInit
         responsive: true,
         title: {
           display: true,
-          text: 'Main Chain Amp Bottom'
+          text: _chartheader
         },
         tooltips: {
           mode: 'index',

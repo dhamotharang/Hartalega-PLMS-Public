@@ -32,9 +32,9 @@
             <div class="graphLevelValue">{{lcAmp.MinimumValue}}</div>
           </mat-card>
 
-          <mat-card class="graphLevelCol">
+          <mat-card class="graphLevelCol" *ngFor="let lcAmp of low_champ_amp">
             <div class="graphLevelLabel">Out of bound</div>
-            <div class="graphLevelValue">197</div>
+            <div class="graphLevelValue">{{lcAmp.OutOfBound}}</div>
           </mat-card>
 
         </div>

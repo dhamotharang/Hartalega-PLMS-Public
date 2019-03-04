@@ -37,7 +37,7 @@ export class PLMSLineListComponent implements OnInit {
     this._router.params.subscribe(param =>
       {
         this._plantid=this._router.snapshot.paramMap.get('id')
-         console.log('Plant Id is : '+this._router.snapshot.paramMap.get('id'));
+        //  console.log('Plant Id is : '+this._router.snapshot.paramMap.get('id'));
          this.getData(this._router.snapshot.paramMap.get('id'));        
       });
   }
@@ -46,18 +46,18 @@ export class PLMSLineListComponent implements OnInit {
   {
     this.showline=true;this.Linedata=[];
     //this.
-    if(value == "4")
-    {
+    // if(value == "4")
+    // {
       this._plantservice.GetLinesPlantByID(parseInt(value)).subscribe(datainfo=>
       {
-            console.log(value);
+            // console.log(value);
             this.data=datainfo;
-            console.log(datainfo[0]['LineName']);   
+            // console.log(datainfo[0]['LineName']);   
             this.LineInfo(datainfo[0]['LineName']) ;     
         });        
-    }
+    // }
     
-    else{this.getStaticLineInfo(parseInt(value));}
+    // else{this.getStaticLineInfo(parseInt(value));}
   }
   
   getStaticLineInfo(plant_id:number) :any
@@ -78,14 +78,14 @@ export class PLMSLineListComponent implements OnInit {
     // localStorage.setItem('session_LineName', _param);
     this.line_name=_param
     this.Linedata=[];
-    console.log(this._plantid);//this.showLoading=true;
+    // console.log(this._plantid);//this.showLoading=true;
     // console.log(_param);
     if(this._plantid==4 || this._plantid==5)
     {
       this._plantservice.GetLineInfoByLineName(_param).subscribe(lineinfobylinename=>
       {
             this.Linedata=lineinfobylinename;
-            console.log(lineinfobylinename);
+            // console.log(lineinfobylinename);
             this.showLoading=false;
             this.LineSummary(_param);
       });
@@ -95,7 +95,7 @@ export class PLMSLineListComponent implements OnInit {
   LineSummary(_param:any)
   {
     this._plantservice.GetLineSummaryByLineName(_param).subscribe(response_linesummary=>{
-      console.log(response_linesummary);
+      // console.log(response_linesummary);
           this.line_summary=response_linesummary;
     })
   }

@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SublayoutComponent implements OnInit {
 
   constructor() { 
-    console.log('SublayoutComponent');
+    // console.log('SublayoutComponent');
   }
 
   ngOnInit() {

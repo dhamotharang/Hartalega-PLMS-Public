@@ -122,7 +122,6 @@ export class Line_Menu
     {
         return [
             { "Title": "Burner Lockout","method":"GetLineInfoBurnerReport"},
-            //{ "Title": "Low Temperature Alarm","method":"GetLineInfoBurnerReport"},
             { "Title": "Pre-Roller Motor","method":"GetLineInfoPreRollerReport"},
             { "Title": "Beading Motor","method":"GetLineInfoBeadingMotorReport"},
             { "Title": "Cleaning Brush Motor","method":"GetLineInfoBrushMotorReport"},
@@ -130,6 +129,8 @@ export class Line_Menu
 
             { "Title": "Main Chain Amp Top","method":"GetLineInfoBurnerReport"},
             { "Title": "Main Chain Amp Bottom","method":"GetLineInfoBurnerReport"},
+            //{ "Title": "Low Temperature Alarm","method":"GetLineInfoBurnerReport"},
+            
             // { "Title": "Latex Level","method":"GetLineInfoBurnerReport"},
             // { "Title": "Chlorine Level","method":"GetLineInfoBurnerReport"},
 

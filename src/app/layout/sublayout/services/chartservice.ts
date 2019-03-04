@@ -12,63 +12,31 @@ export class ChartService
 {
     
     constructor(private _http:HttpClient) { }
-    GetLineChart(_name:string):Observable<any>
+    GetLineChart(_name:string,_linename:string):Observable<any>
     {       
-        
+        //console.log('Present Line is :'+_linename);
         if(_name=='Main Chain Amp Top')
         {
-            console.log(url_plms.domain_url+url_plms.chart_service_GetLineChartTop);
-            return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_GetLineChartTop)
+            //console.log(url_plms.domain_url+url_plms.chart_service_GetLineChartTop);
+            return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_GetLineChartTop+_linename)
             .pipe(retry(3),catchError(this.handlerror));
         }
         else
         {
-            console.log(url_plms.domain_url+url_plms.chart_service_GetLineChartBottom);
-            return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_GetLineChartBottom)
+            //console.log(url_plms.domain_url+url_plms.chart_service_GetLineChartBottom);
+            return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_GetLineChartBottom+_linename)
             .pipe(retry(3),catchError(this.handlerror));
         }
     }
 
-    GetLowChampAmp(_name:string):Observable<any>
+    GetLowChampAmp(_name:string,_linename:string):Observable<any>
     {       
         if(_name=='Main Chain Amp Top')
-        return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_LowChampAmpTopMaxMin)
+        return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_LowChampAmpTopMaxMin+_linename)
         .pipe(retry(3),catchError(this.handlerror));
 
         else
-        return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_LowChampAmpBottomMaxMin)
-        .pipe(retry(3),catchError(this.handlerror));
-    }
-
-    DeleteUser(login_info:UserList):Observable<any>
-    {
-        var _smaccountname = login_info._email.split('@').slice(0);
-        //console.log(login_info);
-        let httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type':  'application/json','Accept':'application/json',
-              'Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'DELETE',
-              'Access-Control-Allow-Headers': 'Origin, Content-Type',
-            //   value:JSON.stringify(login_info)         
-            })
-          };
-        //console.log(_smaccountname[0]);
-        return this._http.delete<any>(url_plms.domain_url + url_plms.user_service_delete +_smaccountname[0],httpOptions)
-        .pipe(retry(3),catchError(this.handlerror));
-    }
-    SaveUser(userInfo:UserList):Observable<any>
-    {
-        //let loginobj=new LoginUser();loginobj._email="asdfg";
-        let httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type':  'application/json',
-              'Accept':'application/json',
-              'Access-Control-Allow-Origin':'*',
-              'Access-Control-Allow-Method':'POST',
-              'Access-Control-Allow-Headers': 'Origin, Content-Type',                 
-            })
-          };
-        return this._http.post(url_plms.domain_url + url_plms.domain_url+"PlmsLogin/Post",JSON.stringify(userInfo),httpOptions)
+        return this._http.get<any>(url_plms.domain_url+url_plms.chart_service_LowChampAmpBottomMaxMin+_linename)
         .pipe(retry(3),catchError(this.handlerror));
     }
     private handlerror(error_res:HttpErrorResponse)
