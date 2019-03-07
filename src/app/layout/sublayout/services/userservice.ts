@@ -20,6 +20,7 @@ export class UserService
 
     UpDateUser(userInfo:UserList):Observable<any>
     {
+      console.log(url_plms.domain_url +url_plms.user_service_update);
         let httpOptions = {
             headers: new HttpHeaders({
               'Content-Type':  'application/json',
@@ -62,6 +63,21 @@ export class UserService
             })
           };
         return this._http.post(url_plms.domain_url +"PlmsLogin/Post",JSON.stringify(userInfo),httpOptions)
+        .pipe(retry(3),catchError(this.handlerror));
+    }
+    findUser(userInfo:UserList):Observable<any>
+    {
+        //let loginobj=new LoginUser();loginobj._email="asdfg";
+        let httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/json',
+              'Accept':'application/json',
+              'Access-Control-Allow-Origin':'*',
+              'Access-Control-Allow-Method':'POST',
+              'Access-Control-Allow-Headers': 'Origin, Content-Type',                 
+            })
+          };
+        return this._http.post(url_plms.domain_url +"PlmsLogin/GetUser",JSON.stringify(userInfo),httpOptions)
         .pipe(retry(3),catchError(this.handlerror));
     }
     private handlerror(error_res:HttpErrorResponse)

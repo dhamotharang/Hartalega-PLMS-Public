@@ -10,6 +10,15 @@
 .fwidth { width: 100%; }
 .clMain { display: flex; }
 
+.dShow {display: block !important;}
+.dHide {display: none !important;}
+.lineListCol {
+    display: flex;
+    height: 100%; 
+    width: calc(100vw - 60px);
+}
+
+.lineContent {height: 100%;}
 .line-list-card { 
     width: calc(25% - 33px);
     border-radius: 0;
@@ -18,10 +27,19 @@
     border-top: 0;
     border-right: 0;
     cursor: pointer;
+    position: relative;
 }
-
+.disabledLayer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
 .line-tabs {
     background-color: #fff;
+    
+    height: calc(100vh - 68px);
 }
 
 .line-list {
@@ -55,7 +73,7 @@
 .line-summary {
     background: white;
     width: 500px;
-    /* display: none; */
+    display: none;
 }
 
 .info-btn {
@@ -82,7 +100,7 @@
 }
 
 .sensor-value {
-    width: calc(100% / 8);
+    width: calc(100% / 2);
     padding: 5px;
     margin: 0 3px;
     font-size: 0.75em;
@@ -95,6 +113,10 @@
     cursor: pointer;
 }
 
+.mat-tab-body.mat-tab-body-active {
+    overflow-y: scroll !important;
+    height: calc(100vh - 118px) !important;
+}
 
 /* Structure */
 table {
@@ -133,12 +155,81 @@ table {
     display: none;
 }
 
-@media screen and (max-width: 500px) {
-.mobileSummary {
-    background: white;
+    
+.mat-badge-medium.mat-badge-after .mat-badge-content {
+    right: 15px !important;
 }
+.mat-badge-medium.mat-badge-above .mat-badge-content {
+    top: 8px !important;
+}
+.mat-badge-content {
+    color: #505050 !important;
+    background: #cacaca !important;
+}
+
+.mat-badge {
+    position: unset !important;
+}
+.summarySensor {
+    padding: 10px !important;
+    display: none;
+}
+
+.collapseBtn {
+    background: #6b6b79;
+    display: table-cell;
+    padding: 3px;
+    color: white;
+    font-size: 20px;
+    padding-top: calc(25% - 25px);
+    cursor: pointer;
+    transition-delay: 0.3s;
+}
+.collapseBtn:hover {
+    background:#2d2d33;
+}
+
+
+.line-trigger {
+    background: #e4ab00;
+    padding: 5px 10px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 0.75em;
+    }
+
+@media screen and (max-width: 500px) {
+
+    .line-trigger {
+        top: 20px;
+        right: 20px;
+    }
+    
+.line-tabs {
+    height: 100% !important;
+}
+
+    .dShow{display: none !important;}
+    .collapseBtn {display: none;}
+    .lineContent {height: auto !important;}
+    .dMobileShow {display: block;}
+
+    .lineListCol {
+        margin-top: 50px;
+        width: 100%;
+        overflow-y: scroll;
+        height: calc(100% - 50px);
+    }
+    .mobileSummary {
+        background: white;
+    }
     .mat-card {
-        padding: 0 !important;
+        padding: 0;
+        position: relative !important;
     }
     .line-trig {
         top: 15px;
@@ -161,5 +252,11 @@ table {
     }
     .info-btn { display: none; }
     .line-summary { display: none; }
-    .line-value { font-size: 1.8em !important; }
+    .line-value { font-size: 1.8em !important; 
+    }
+    .sensor-title,.sensor-column {
+        margin-bottom: 0px !important;
+        padding: 5px 10px !important;
+    }
+
 }

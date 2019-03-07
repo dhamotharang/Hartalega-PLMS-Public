@@ -1,3 +1,21 @@
+.dShow {display: block !important;}
+
+.mobile-plant-Nav {
+    display: block;
+    width: 100%;
+    position: absolute;
+    z-index: 999;
+    display: none;
+}
+.mobilePlantBtn {
+    color: white;
+    background: #6b6b79;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-align: center;
+}
+
 .plant-Nav { 
     width: 60px;
     height: 100%;
@@ -31,4 +49,12 @@
 
 .active {
     background-color: #6b6b79;
+}
+
+@media screen and (max-width: 500px) {
+    .dMobileShow {display: block;}
+    .plant-Nav {display: none;}
+    .mobile-plant-Nav {display: block;}
+    
+.mobilePlantNav {display: none;}
 }

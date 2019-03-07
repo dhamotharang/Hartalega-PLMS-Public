@@ -33,7 +33,9 @@ export class ColumnName {
             //Rinse Blower
             case 'Rinse_Blower_L':return'L';
             case 'Rinse_Blower_R':return'R';
-
+            
+            case 'NG_MT_Status':return'GasA';
+            case 'NG_NT_Status':return'GasB';
             default: return Name;
         }
     }

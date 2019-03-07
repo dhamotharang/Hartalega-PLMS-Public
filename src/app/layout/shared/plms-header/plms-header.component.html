@@ -4,7 +4,20 @@
     </div>
     <div class="logged-user">
         <mat-chip-list>
-            <mat-chip (click)="logout()">{{loginname}}</mat-chip>
+            <mat-chip (click)="setLogOutStatus()">{{loginname}}</mat-chip>
         </mat-chip-list>
     </div>
+
+    <!--mobile btn-->
+    <div class="mobileLogBtn">
+        <mat-chip-list>
+            <mat-chip (click)="setLogOutStatus()"><i class="far fa-user"></i> <div class="userNameStatus" [class.dShow]="logOutStatus==true">{{loginname}}</div></mat-chip>
+        </mat-chip-list>
+    </div>
+    <div class="logOffBtn" [class.dShow]="logOutStatus==true">
+        <mat-chip-list>
+            <mat-chip class="offBtn" (click)="logout()"><i class="fas fa-sign-out-alt" style="margin-right: 10px;"></i> Logout</mat-chip>
+        </mat-chip-list>
+    </div>
+
 </mat-card>

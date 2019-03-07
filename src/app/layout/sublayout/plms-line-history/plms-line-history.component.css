@@ -1,3 +1,28 @@
+.mobileNav {
+  display: none;
+  overflow-y: scroll;
+  height: calc(100vh - 118px);
+  background: #435761;
+}
+.mobileSensorParameter {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 999;
+  display: none;
+}
+.mobileSensorBtn{
+  background: #124b87;
+  color: white;
+  border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-align: center;
+}
+.dShow {
+  display: block;
+}
+
 .sensor-Nav {
     height: calc(100vh - 68px);
     width: 300px;
@@ -14,7 +39,9 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
   
-  
+  .activeParam {
+    background: #124b87 !important;
+}
   
   .graphLevelBody {
       width: calc(100% - 100px);
@@ -100,4 +127,36 @@
       padding-right: 0 !important;
   }
 
-  .paramActive { background-color: #24353e; }
+  
+
+@media screen and (max-width: 500px) {
+  .mobileSensorParameter {
+    display: block;
+  }
+  .sensor-Nav {display: none;}
+  .history-col {
+    display: block;
+    width: 100%;
+  }
+  .history-right{
+    width: 100vw;
+    margin-top: 50px;
+  }
+
+  .graphLevelBody[_ngcontent-c7] {
+    height: calc(100vh - 168px) !important;
+}
+
+  .example-container {
+    height: calc(100vh - 168px) !important;
+}
+.graphLevelCol {
+  padding: 0 !important;
+  text-align: center;
+}
+.graphLevelValue {
+  width: 100%;
+  padding: 0 0 10px 0!important;
+  float: none !important;
+}
+}

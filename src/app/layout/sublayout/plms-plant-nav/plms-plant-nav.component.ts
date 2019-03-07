@@ -12,7 +12,6 @@ export class PLMSPlantNavComponent implements OnInit {
   public IsAdmin = false;
   data:any;
   categoryColor:string;
-  SelectedPlant:any;
   currentPlant:any
 
   constructor(private _plantservice:PlantService,private route:ActivatedRoute) 
@@ -29,6 +28,7 @@ export class PLMSPlantNavComponent implements OnInit {
     //set default active nav
     this.currentPlant = this.route.snapshot.paramMap.get('id');
     this.setActiveNav(this.currentPlant);
+    this.SelectedPlant = this.currentPlant;
   }
 
   ShowHideSettingMenu()
@@ -61,9 +61,16 @@ export class PLMSPlantNavComponent implements OnInit {
         return page
   }
 
+  SelectedPlant:any;
   setActiveNav(plantID):any
   {
     this.SelectedPlant = plantID;
+  }
+
+  mplStatus:boolean = false;
+  mplSelectBool(){
+    this.mplStatus = !this.mplStatus;
+    console.log('this is ' + this.mplStatus);
   }
 
 }

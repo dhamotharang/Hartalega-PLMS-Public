@@ -45,19 +45,13 @@ export class PLMSLineListComponent implements OnInit {
   getData(value : string)
   {
     this.showline=true;this.Linedata=[];
-    //this.
-    // if(value == "4")
-    // {
       this._plantservice.GetLinesPlantByID(parseInt(value)).subscribe(datainfo=>
       {
-            // console.log(value);
+            console.log(datainfo);
             this.data=datainfo;
             // console.log(datainfo[0]['LineName']);   
             this.LineInfo(datainfo[0]['LineName']) ;     
         });        
-    // }
-    
-    // else{this.getStaticLineInfo(parseInt(value));}
   }
   
   getStaticLineInfo(plant_id:number) :any
@@ -68,6 +62,8 @@ export class PLMSLineListComponent implements OnInit {
     for (this.line_start; this.line_start < this.line_stop; this.line_start++) 
     {
       this.data.push({'LineName':'Line'+this.line_start,'LineCount':'NA','LineColor':'#d8d8d8' })
+      
+      console.log(this.data);
     }
   }
 
@@ -98,6 +94,40 @@ export class PLMSLineListComponent implements OnInit {
       // console.log(response_linesummary);
           this.line_summary=response_linesummary;
     })
+  }
+
+  mlStatus:boolean = false;
+  selectedLineMobile:any;
+  currentSelectedLineMobile:any;
+  
+  selectLineMobile(mLineNo):any {
+    if(this.mlStatus == false){
+      this.mlStatus = !this.mlStatus;
+    this.selectedLineMobile = mLineNo;
+    this.currentSelectedLineMobile = mLineNo;
+    }
+    else{
+      
+      if(this.currentSelectedLineMobile != mLineNo){
+        this.selectedLineMobile = mLineNo;
+        this.currentSelectedLineMobile = mLineNo;
+      }else{
+        this.mlStatus = !this.mlStatus;
+        this.selectedLineMobile = null;
+        this.currentSelectedLineMobile = null;
+
+      }
+    }
+  }
+
+  collapseStatus:boolean = false;
+  setCollapse(showCollapse):any{
+    if(showCollapse>0){
+      this.collapseStatus = true;
+    }
+    else{
+      this.collapseStatus = !this.collapseStatus;
+    }
   }
 
 }

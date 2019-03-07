@@ -1,6 +1,9 @@
+.dShow {display: block !important;}
 .fwidth { width: 100%; }
 .fheight { height: 100%; }
-
+.logo {
+   width: auto;
+}
 .header {
     border-radius: 0 !important;
     height: calc(100px - 64px);
@@ -11,4 +14,34 @@
 .logo:hover {
     cursor: pointer;
  }
+
+ .userNameStatus {
+    display: none;
+   margin-left: 10px;
+}
+.mobileLogBtn {
+   position: absolute;
+   right: 15px;
+   top: 15px;
+   z-index: 1000;
+   display: none;
+}
+.logOffBtn {
+   position: absolute;
+   right: 15px;
+   top: 50px;
+   z-index: 1000;
+   display: none;
+}
+ 
+ .offBtn {
+    background: #d84040;
+    color: white;
+ }
+ 
+ 
+@media screen and (max-width: 500px) {
+   .mobileLogBtn {display: block !important;}
+   .logged-user {display: none;}
+}
 

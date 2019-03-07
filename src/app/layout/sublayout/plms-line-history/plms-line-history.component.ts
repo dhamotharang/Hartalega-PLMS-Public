@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { Chart } from 'chart.js';
-import { Line_BurnerLockout,Line_Menu,Line_PreRoller,
+import { Line_BurnerLockout,Line_Menu,Line_PreRoller,Gas,
   Line_BeadingMotor,Line_BrushMotor,Line_RinseBlower} from '../models/line';
 import { Describer} from '../models/line';
 import { ActivatedRoute,Route, Router, DefaultUrlSerializer  } from '@angular/router';
@@ -49,16 +49,19 @@ export class PlmsLineHistoryComponent implements OnInit
 
     this.getlinename();
 
-    this.CurrentParam = this._router.snapshot.paramMap.get('_historyreportname');
-    //console.log('this is param ' + this._router.snapshot.paramMap.get('linename'));
-    //this.setActiveParam(this.CurrentParam.Title);
-    //this.chart_apis()
-    //this.default_reportname()
-    //this.chart_lineinfo();
+    this.CurrentParam = this._router.snapshot.paramMap.get('linename').split('&');
+    this.setActiveParam(this.CurrentParam[1]);
+    this.SelectedParam = this.CurrentParam[1];
   }
+  
 
   setActiveParam(paramID):any {
     this.SelectedParam = paramID;
+  }
+
+  mpStatus:boolean = false;
+  mpSelectBool(){
+    this.mpStatus = !this.mpStatus;
   }
 
   getlinename()
@@ -72,21 +75,14 @@ export class PlmsLineHistoryComponent implements OnInit
   }
   chart_apis(_name:string)
   {
-    //console.log(_name);
-    // this._chartlabels=[];
     this._chartbottom.length=this._chartdata.length=this._chartlabels.length=0;
     this._charttop.length=this._chartbottom.length=0;
     
-    // this._chartdata=[];
-    // this._charttop=[];
-    // this._chartbottom=[];
-    //this.chart =[];
     this.chart.length=0;
     this._chartservice.GetLineChart(_name,this.linename).subscribe(res_linechartdata=>
     {
       res_linechartdata.forEach(element => 
       {
-        //console.log(element);
         this._chartlabels.push(element._time);
         this._chartdata.push(element._avg);
         this._charttop.push(element._top);
@@ -94,27 +90,22 @@ export class PlmsLineHistoryComponent implements OnInit
         this.chart_lineinfo(_name); 
         this.low_champ_maxmin(_name,this.linename);
       });
-      //console.log(this._chartlabels);
     })
   }
   default_reportname()
   {
-    //console.log(this._router.snapshot.paramMap.get('_historyreportname'));
     this.showReport(this._router.snapshot.paramMap.get('_historyreportname'));
   }
   getColumns(_requestname:string)
   {   
     this._linefields = Describer.describe(this._lineobj);
     this.displayedColumns=this._linefields;
-    //console.log(this.displayedColumns);
     this.columnsToDisplay = this.displayedColumns.slice();  
     this.BurnerReport(this.linename,_requestname);
   }
   showReport(_reportname)
   {
     this._lineobj=null;this.dataSource=null;
-
-    //console.log(_reportname.Title);
 
     switch(_reportname.Title) 
     { 
@@ -159,13 +150,9 @@ export class PlmsLineHistoryComponent implements OnInit
       case "Main Chain Amp Top": 
       { 
         this.linechart=null;this.showburner=false;
-        //this._lineobj=new Line_RinseBlower();this.getColumns(_reportname.method);
         this.show_chart_lineinfo=true;
-        //this.chart_lineinfo();  
-        //this.show_chart_lineinfo=true;
         this.chart_apis(_reportname.Title);   
               
-        
          break; 
       }
 
@@ -173,11 +160,163 @@ export class PlmsLineHistoryComponent implements OnInit
       { 
         this.linechart=null;this.showburner=false;
         this.show_chart_lineinfo=true;
-        //this.chart_lineinfo();  
-        //this.show_chart_lineinfo=true;
         this.chart_apis(_reportname.Title);   
-              
-        //
+             
+         break; 
+      }
+////////////////////////////////////////////////////////
+      case "Coagulant Level": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+      case "Coagulant Temperature": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+      case "Latex Level": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+      case "Latex Temperature": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+      case "Chlorine Level": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+      case "Gas": 
+      { 
+        this.show_chart_lineinfo=false;
+        this._lineobj=new Gas();this.getColumns(_reportname.method);this.showburner=true;
+        break;            
+      }
+
+      case "Electricity A": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+
+      case "Electricity B": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+
+      case "Acid 1": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+
+      case "Acid 2": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+
+      case "Acid Bath": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+
+      case "Alkaline 1": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+
+      case "Alkaline 2": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+
+      case "Hot Bath": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+
+      case "Hot Rinse": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+
+      case "Hot Water": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+
+      case "Coagulant Tank": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
+         break; 
+      }
+
+      case "Latex Tank": 
+      { 
+        this.linechart=null;this.showburner=false;
+        this.show_chart_lineinfo=true;
+        this.chart_apis(_reportname.Title);   
+             
          break; 
       }
     }
@@ -188,13 +327,15 @@ export class PlmsLineHistoryComponent implements OnInit
   {
     //console.log(_requestname);
     this._lineservice.GetLineInfo(_lineName,_requestname).subscribe(lineinfobylinename=>
-      {
-        lineinfobylinename.slice().forEach(element => {
+    {
+      console.log(lineinfobylinename);
+        lineinfobylinename.slice().forEach(element => 
+        {
           element['Datetime_Hours'] = this.CName.HourFormat(element['Datetime_Hours'])
         });
         this.dataSource=lineinfobylinename;
           //console.log(this.dataSource);         
-      });
+    });
   }
   linemenu:string[]=this._con_linemenu.Line_RequestMethods_const();
 
@@ -211,18 +352,18 @@ export class PlmsLineHistoryComponent implements OnInit
     //let chart=new Chart()
     this.linechart = new Chart('linechart', {
       type: 'line',
-      responsive: true,
+      responsive: false,
       maintainAspectRatio: false,
       data: {
-        labels:this._chartlabels,
-        // labels: ['7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM', '8PM', '9PM', '10PM', '11PM', '12AM', '1AM', '2AM', '3AM', '4AM', '5AM', '6AM'],
+        //labels:this._chartlabels,
+        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23S'],
         datasets: [
           {
             label: '24 Hours Report',
             backgroundColor: 'green',
             borderColor: 'green',
-            data: this._chartdata,
-            //data: [45, 1, 3, 34, 32, 5, 13, 73, 31, 12, 5, 61, 82, 3, 34, 32, 5, 13, 73, 31, 12, 5, 61, 82],
+            //data: this._chartdata,
+            data: [45, 1, 3, 34, 32, 5, 13, 73, 31, 12, 5, 61, 82, 3, 34, 32, 5, 13, 73, 31, 12, 5, 61, 82],
             fill: false,
             lineTension: 0
           }, 
@@ -231,16 +372,16 @@ export class PlmsLineHistoryComponent implements OnInit
             fill: false,
             backgroundColor: 'red',
             borderColor: 'red',
-            data:this._charttop
-            //data: [70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+            //data:this._charttop
+            data: [70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
           },
           {
             label: 'Bottom',
             fill: false,
             backgroundColor: 'Blue',
             borderColor: 'Blue',
-            data:this._chartbottom,
-            //data: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+            //data:this._chartbottom,
+            data: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
           }
       ]
       },

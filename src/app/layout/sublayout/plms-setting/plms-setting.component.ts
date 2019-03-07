@@ -31,16 +31,17 @@ export class PlmsSettingComponent implements OnInit {
 
   getUsersList()
   {
+    this._registeremail='';
     this._lineobj=null;this.dataSource=null;
     this._lineobj=new UserList();
 
     this._linefields = Describer.describe(this._lineobj);
-    console.log(this._linefields);
+    ////console.log(this._linefields);
     this.displayedColumns=this._linefields;
     this.columnsToDisplay = this.displayedColumns.slice();  
     this._userService.GetUsersList().subscribe(res_userlist=>
     {
-      console.log(res_userlist);
+      ////console.log(res_userlist);
       this.dataSource = new MatTableDataSource(res_userlist);
     })
     //this.displayedColumns = ['position', 'name', 'weight', 'symbol', 'action'];
@@ -49,17 +50,18 @@ export class PlmsSettingComponent implements OnInit {
   
   // selectedRow(_param:any)
   // {
-  //   console.log(_param);
+  //   //console.log(_param);
   // }
   IsAdmin(_param:any,_action:any)
   {  
+    console.log(_action);
     let register=new UserList();
     register._email=_param._email;
     if(_param._internal==1){register._internal=0}
     if(_param._internal==0){register._internal=1}
     console.log(JSON.stringify(register));
     this._userService.UpDateUser(register).subscribe(res_savedata=>{
-      console.log(res_savedata);
+      //console.log(res_savedata);
       this.getUsersList();
     })   
   }
@@ -73,7 +75,11 @@ export class PlmsSettingComponent implements OnInit {
 
   Delete(_param:any,_action:any)
   {
-    this.openDialog(_param);
+    //console.log(_action);
+    if(_action=="Delete")
+    {
+      this.openDialog(_param);
+    }
   }
 
   openDialog(_param:any) 
@@ -88,8 +94,8 @@ export class PlmsSettingComponent implements OnInit {
       {
         this._userService.DeleteUser(_param).subscribe(res_userdelete=>
         {
-          console.log('DeleteUser');
-          console.log(res_userdelete);
+          //console.log('DeleteUser');
+          //console.log(res_userdelete);
           this.getUsersList();
           
         })
@@ -97,19 +103,75 @@ export class PlmsSettingComponent implements OnInit {
     });
   }
 
-  
+  FindUser()
+  {
+    let register=new UserList();register._email=this._registeremail;
+    this._userService.findUser(register).subscribe(res_savedata=>
+    {
+      //console.log(res_savedata['_email']);
+      //console.log(register._email);
+      if(String(res_savedata['_email'])=='Found')
+      {
+        this.snackBar.open(this._registeremail+" already existed.", "Ok", {
+          duration: 60000,
+        });        
+      }
+      else
+      {
+        this.SaveEmail();
+      }
+    }) 
+
+    // this.getUsersList();
+    // this._registeremail='';
+  }
   SaveEmail()
   {
-    //console.log(this._registeremail);
-    let register=new UserList();
-    register._email=this._registeremail;
-    console.log(JSON.stringify(register));
-    this._userService.SaveUser(register).subscribe(res_savedata=>{
-      console.log(res_savedata);
-      this.getUsersList();
-    })  
+    //console.log('Came to SaveEmail fun');
+    // if(!this.checkemailsetting())
+    // {
+      let register=new UserList();
+      register._email=this._registeremail;
+      //console.log(JSON.stringify(register));
+      this._userService.SaveUser(register).subscribe(res_savedata=>{
+
+        //console.log(res_savedata);
+        this.getUsersList();
+        this._registeremail='';
+      })  
+    // }
+    // else
+    // {
+    //   this.snackBar.open(this._registeremail+" already existed.", "Ok", {
+    //       duration: 60000,
+    //     });
+    // }
+    
+  }
+  
+  applyFilter(filterValue: string) 
+  {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  checkemailsetting():boolean
+  {   
+     let userfound=false;
+     //console.log(this._registeremail);
+     let finduser=this.dataSource.filter(this._registeremail.trim().toLowerCase());
+     //console.log(finduser);
+    //  if(this.dataSource.filter==this._registeremail.trim().toLowerCase())
+    //  {
+    //     //console.log('User Found');
+    //     userfound=true;
+    //  }
+    //  else
+    //  {
+      
+    //  }
+     this.dataSource.filter="";
+    return userfound;
+  }
 }
 
 

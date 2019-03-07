@@ -116,41 +116,71 @@ export class Line_RinseBlower
     public Rinse_Blower_R:number;
 }
 
+export class Gas
+{
+    // public class_fields:string[];
+    constructor()
+    {
+        this.Datetime_Hours=null;
+        this.NG_MT_Status=null;  
+        this.NG_NT_Status=null;   
+    }
+    public Datetime_Hours:Date;
+    public NG_MT_Status:number;
+    public NG_NT_Status:number;
+}
+
+
+
 export class Line_Menu
 {
     Line_RequestMethods_const = (): Array<any> => 
     {
         return [
-            { "Title": "Burner Lockout","method":"GetLineInfoBurnerReport"},
-            { "Title": "Pre-Roller Motor","method":"GetLineInfoPreRollerReport"},
-            { "Title": "Beading Motor","method":"GetLineInfoBeadingMotorReport"},
-            { "Title": "Cleaning Brush Motor","method":"GetLineInfoBrushMotorReport"},
-            { "Title": "Rinse Blower","method":"GetLineInfoRinseBlowerReport"},
 
             { "Title": "Main Chain Amp Top","method":"GetLineInfoBurnerReport"},
             { "Title": "Main Chain Amp Bottom","method":"GetLineInfoBurnerReport"},
-            //{ "Title": "Low Temperature Alarm","method":"GetLineInfoBurnerReport"},
             
-            // { "Title": "Latex Level","method":"GetLineInfoBurnerReport"},
-            // { "Title": "Chlorine Level","method":"GetLineInfoBurnerReport"},
+            { "Title": "Gas","method":"GetLineInfoGasReport"},
+            { "Title": "Electricity A","method":""},
+            { "Title": "Electricity B","method":""},
 
-            // { "Title": "Coagulant Level","method":"GetLineInfoBurnerReport"},
-            // { "Title": "Oven Temperature","method":"GetLineInfoBurnerReport"},
-            // { "Title": "Gas","method":"GetLineInfoBurnerReport"},
-            // { "Title": "Electricity","method":"GetLineInfoBurnerReport"},
-
-            // { "Title": "Acid 1","method":"GetLineInfoBurnerReport"},
-            // { "Title": "Acid 2","method":"GetLineInfoBurnerReport"},
-            // { "Title": "Acid Bath","method":"GetLineInfoBurnerReport"},
-            // { "Title": "Alkaline 1","method":"GetLineInfoBurnerReport"},
-
-            // { "Title": "Alkaline 2","method":"GetLineInfoBurnerReport"},
-            // { "Title": "Hot Bath","method":"GetLineInfoBurnerReport"},
-            // { "Title": "Hot Rinse","method":"GetLineInfoBurnerReport"},
-            // { "Title": "Hot Water","method":"GetLineInfoBurnerReport"},
+            { "Title": "Burner Lockout","method":"GetLineInfoBurnerReport"},
             
-            // { "Title": "Coagulant Tank","method":"GetLineInfoBurnerReport"},
-            // { "Title": "Latex Tank","method":"GetLineInfoBurnerReport"} 
+            { "Title": "Oven Temperature","method":""},
+
+            { "Title": "Low Temperature Alarm","method":""},
+
+            { "Title": "Acid 1","method":""},
+            { "Title": "Acid 2","method":""},
+            { "Title": "Acid Bath","method":""},
+            { "Title": "Alkaline 1","method":"GetLineInfoBurnerReport"},
+            { "Title": "Alkaline 2","method":""},
+
+            { "Title": "Hot Bath","method":""},
+            { "Title": "Hot Rinse","method":""},
+            { "Title": "Hot Water","method":""},
+
+            { "Title": "Cleaning Brush Motor","method":"GetLineInfoBrushMotorReport"},
+
+            { "Title": "Coagulant Level","method":""},
+            { "Title": "Coagulant Temperature","method":""},
+
+            { "Title": "Latex Level","method":""},
+            { "Title": "Latex Temperature","method":""},
+            
+            { "Title": "Beading Motor","method":"GetLineInfoBeadingMotorReport"},
+
+            { "Title": "Chlorine Level","method":""},
+
+            { "Title": "Rinse Blower","method":"GetLineInfoRinseBlowerReport"},
+
+            { "Title": "Pre-Roller Motor","method":"GetLineInfoPreRollerReport"},
+
+            { "Title": "Coagulant Tank","method":""},
+
+            { "Title": "Latex Tank","method":""} 
+
         ]       
     };
 }

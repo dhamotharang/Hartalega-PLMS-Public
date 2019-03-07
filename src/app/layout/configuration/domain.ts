@@ -1,7 +1,7 @@
 // export const domain_url:string='http://project-app.zen.com.my/plms/api/';
-export const domain_url:string='http://localhost:9880/api/';
-//export const domain_url:string='http://sphybrid.zen.com.my/plms/api/';
-
+//export const domain_url:string='http://localhost:9880/api/';
+export const domain_url:string='http://sphybrid.zen.com.my/plms/api/';
+//export const domain_url:string='http://ngc-devvm1/plms/api/';
 
 // userservice.ts with PlmsLogin ApiController
 export const user_service_get:string    = 'PlmsLogin/Get';
@@ -22,6 +22,9 @@ export const plant_GetIndividual_LineInfo :string   ='Line/GetLineIndividualInfo
 export const Plant_GetIndividual_LineInfoSummary:string    = 'Line/GetLineSummary/';
 
 export const line_service_GetLineInfo_BurnerReport:string    = 'Line/GetLineInfoBurnerReport/';
+
+export const line_service_GetLineInfo_GasAReport:string    = 'Line/GetLineInfoGasAReport/';
+export const line_service_GetLineInfo_GasBReport:string    = 'Line/GetLineInfoGasAReport/';
 
 
 export const chart_service_GetLineChartTop:string='Chart/GetChart__LowChampAmpTop/';

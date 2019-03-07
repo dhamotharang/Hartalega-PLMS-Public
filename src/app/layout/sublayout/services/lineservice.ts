@@ -13,15 +13,15 @@ export class LineService
        
     GetLineInfo_BurnerReport(lineid:string):Observable<any>
     {
-        console.log('lineid'+lineid);
+        //console.log('lineid'+lineid);
         return this._http.get<any>(url_plms.domain_url+url_plms.line_service_GetLineInfo_BurnerReport+lineid)
         .pipe(retry(3),catchError(this.handlerror));
     }   
     
     GetLineInfo(lineid:string,requestname:string):Observable<any>
     {
-        // console.log('lineid'+lineid);
-        return this._http.get<any>(url_plms.domain_url+"/Line/"+requestname+"/"+lineid)
+        //console.log(url_plms.domain_url+"Line/"+requestname+"/"+lineid);
+        return this._http.get<any>(url_plms.domain_url+"Line/"+requestname+"/"+lineid)
         .pipe(retry(3),catchError(this.handlerror));
     }
 

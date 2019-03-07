@@ -9,32 +9,61 @@
 
 <app-loadindicator *ngIf="showLoading"></app-loadindicator>
 
-<div style="display: flex;height: 100%; width: calc(100vw - 60px);" *ngIf="showline">
+<div class="lineListCol" *ngIf="showline">
 
     <div class="clMain line-list">
-        <mat-card class="line-list-card" *ngFor="let item of data" (click)="LineInfo(item.LineName)" [ngStyle]="{'background-color': item.LineColor}">
-        <!-- <mat-card class="line-list-card bg-Good" onclick="myFunction()" *ngFor="let item of data" ng-disabled='disabled' -->
-            <!-- (click)="LineInfo(item.LineName)" [ngStyle]="{'background-color': item.LineColor}"> -->
-            <!-- <div class="line-no">{{item.line_name}}</div>
-            <div class="line-status">
-                <div class="line-value">{{item.plant_id}}</div>
-            </div> -->
-            <div class="line-no">{{item.LineName}}</div>
-            <div class="line-status">
-                <div class="line-value">{{item.LineCount}}</div>
+        <mat-card class="line-list-card" *ngFor="let item of data" [ngStyle]="{'background-color': item.LineColor}">
+
+            <div [class.disabledLayer]="item.LineCount=='NA'"></div>
+
+            <div class="lineContent"
+                (click)="selectLineMobile(item.LineName);LineInfo(item.LineName);setCollapse(true)">
+                <div class="line-no">{{item.LineName}}</div>
+                <div class="line-trigger">{{item.LineStatus}}</div>
+                <div class="line-status">
+                    <div class="line-value">{{item.LineCount}}</div>
+                    <div class="line-value"></div>
+                </div>
             </div>
 
             <!--mobile menu start here-->
-            <div id="item.LineName" class="mobileSummary">
+            <div id="lineSummary" class="mobileSummary" *ngIf="Linedata != null"
+                [ngClass]="(item.LineName==selectedLineMobile)?'dMobileShow':''">
                 <mat-tab-group mat-stretch-tabs class="fwidth line-tabs" *ngFor="let item of Linedata">
+
                     <mat-tab class="line-tabs" label="{{line_name}}">
+
                         <mat-card class="sensor">
-                            <div class="sensor-title">Burner Report</div>
+                            <div class="sensor-title">Main Chain Amp</div>
+                            <div class="sensor-column">
+                                <div [routerLink]="['lineinfo',line_name+'&Main Chain Amp Top']"
+                                    class="sensor-value bg-Good">Top</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Main Chain Amp Bottom']"
+                                    class="sensor-value bg-Good">Bottom</div>
+                            </div>
+                        </mat-card>
+
+                        <!-- harcoded -->
+                        <mat-card class="sensor">
+                            <div class="sensor-title">Energy Consumption - Gas and Electricity </div>
+                            <div class="sensor-column">
+                                <div [routerLink]="['lineinfo',line_name+'&Gas A']" class="sensor-value bg-Good">Gas A
+                                </div>
+                                <div [routerLink]="['lineinfo',line_name+'&Gas B_BurnerLockout']"
+                                    class="sensor-value bg-Bad">Gas B</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Electricity A']"
+                                    class="sensor-value bg-Good">Electricity A</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Electricity B']"
+                                    class="sensor-value bg-Good">Electricity B</div>
+                            </div>
+                        </mat-card>
+
+                        <mat-card class="sensor">
+                            <div class="sensor-title">Burner Lockout</div>
                             <div class="sensor-column">
                                 <div [routerLink]="['lineinfo',line_name+'&Burner Lockout']"
                                     [ngClass]="(item.B_Burner_Lockout==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">
                                     B</div>
-                                <!-- <div (click)="linehistory('Burner Lockout')" [ngClass]="(item.B_Burner_Lockout==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">B</div>                     -->
                                 <div [routerLink]="['lineinfo',line_name+'&Burner Lockout']"
                                     [ngClass]="(item.C_Burner_Lockout==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">
                                     C</div>
@@ -63,6 +92,22 @@
                                 </div>
                             </div>
                         </mat-card>
+
+                        <!-- harcoded -->
+                        <mat-card class="sensor">
+                            <div class="sensor-title">Oven Temperature </div>
+                            <div class="sensor-column">
+                                <div [routerLink]="['lineinfo',line_name+'&Oven Temperature']" class="sensor-value bg-Good">B</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Oven Temperature']" class="sensor-value bg-Bad">C</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Oven Temperature']" class="sensor-value bg-Good">D</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Oven Temperature']" class="sensor-value bg-Good">Z1</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Oven Temperature']" class="sensor-value bg-Bad">Z2</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Oven Temperature']" class="sensor-value bg-Good">Z3</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Oven Temperature']" class="sensor-value bg-Good">Z4</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Oven Temperature']" class="sensor-value bg-Good">Z5</div>
+                            </div>
+                        </mat-card>
+
                         <mat-card class="sensor">
                             <div class="sensor-title">Low Temperature Alarm</div>
                             <div class="sensor-column">
@@ -83,26 +128,79 @@
                                     Z4</div>
                                 <div [ngClass]="(item.Z5_Burner_Temp==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">
                                     Z5</div>
+                            </div>
+                        </mat-card>
 
-                            </div>
-                        </mat-card>
+                        <!-- harcoded -->
                         <mat-card class="sensor">
-                            <div class="sensor-title">Pre-Roller</div>
+                            <div class="sensor-title">Acid </div>
                             <div class="sensor-column">
-                                <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
-                                    [ngClass]="(item.PreRoller_LT==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">LT
+                                <div [routerLink]="['lineinfo',line_name+'&Acid 1']" class="sensor-value bg-Bad">1</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Acid 2']" class="sensor-value bg-Good">2
                                 </div>
-                                <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
-                                    [ngClass]="(item.PreRoller_RT==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">RT
+                                <div [routerLink]="['lineinfo',line_name+'&Acid Bath']" class="sensor-value bg-Good">
+                                    bath</div>
+                            </div>
+                        </mat-card>
+
+                        <!-- harcoded -->
+                        <mat-card class="sensor">
+                            <div class="sensor-title">Alkaline </div>
+                            <div class="sensor-column">
+                                <div [routerLink]="['lineinfo',line_name+'&Alkaline 1']" class="sensor-value bg-Good">1
                                 </div>
-                                <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
-                                    [ngClass]="(item.PreRoller_LB==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">LB
-                                </div>
-                                <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
-                                    [ngClass]="(item.PreRoller_RB==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">RB
+                                <div [routerLink]="['lineinfo',line_name+'&Alkaline 2']" class="sensor-value bg-Good">2
                                 </div>
                             </div>
                         </mat-card>
+
+                        <!-- harcoded -->
+                        <mat-card class="sensor">
+                            <div class="sensor-title">Hot </div>
+                            <div class="sensor-column">
+                                <div [routerLink]="['lineinfo',line_name+'&Hot Bath']" class="sensor-value bg-Good">Bath
+                                </div>
+                                <div [routerLink]="['lineinfo',line_name+'&Hot Rinse']" class="sensor-value bg-Good">
+                                    Rinse</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Hot Water']" class="sensor-value bg-Good">
+                                    Water</div>
+                            </div>
+                        </mat-card>
+
+                        <mat-card class="sensor">
+                            <div class="sensor-title">Cleaning Brush Motor</div>
+                            <div class="sensor-column">
+                                <div [routerLink]="['lineinfo',line_name+'&Cleaning Brush Motor']"
+                                    [ngClass]="(item.Brush_Motor_L==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">
+                                    Left</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Cleaning Brush Motor']"
+                                    [ngClass]="(item.Brush_Motor_R==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">
+                                    Right</div>
+                            </div>
+                        </mat-card>
+
+                        <!-- Hardcoded -->
+                        <mat-card class="sensor">
+                            <div class="sensor-title">Coagulant</div>
+                            <div class="sensor-column">
+                                <div [routerLink]="['lineinfo',line_name+'&Coagulant Level']"
+                                    class="sensor-value bg-Good">Level</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Coagulant Temperature']"
+                                    class="sensor-value bg-Good">Temperature</div>
+                            </div>
+                        </mat-card>
+
+                        <!-- Hardcoded -->
+                        <mat-card class="sensor">
+                            <div class="sensor-title">Latex</div>
+                            <div class="sensor-column">
+                                <div [routerLink]="['lineinfo',line_name+'&Latex Level']" class="sensor-value bg-Good">
+                                    Level</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Latex Temperature']"
+                                    class="sensor-value bg-Good">Temperature</div>
+                            </div>
+                        </mat-card>
+
                         <mat-card class="sensor">
                             <div class="sensor-title">Beading Motor</div>
                             <div class="sensor-column">
@@ -121,18 +219,15 @@
 
                             </div>
                         </mat-card>
-                        <mat-card class="sensor">
-                            <div class="sensor-title">Cleaning Brush Motor</div>
-                            <div class="sensor-column">
-                                <div [routerLink]="['lineinfo',line_name+'&Cleaning Brush Motor']"
-                                    [ngClass]="(item.Brush_Motor_L==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">
-                                    Left</div>
-                                <div [routerLink]="['lineinfo',line_name+'&Cleaning Brush Motor']"
-                                    [ngClass]="(item.Brush_Motor_R==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">
-                                    Right</div>
 
+                        <mat-card class="sensor">
+                            <div class="sensor-title">Chlorine Level</div>
+                            <div class="sensor-column">
+                                <div [routerLink]="['lineinfo',line_name+'&Chlorine Level']"
+                                    class="sensor-value bg-Good">Level</div>
                             </div>
                         </mat-card>
+
                         <mat-card class="sensor">
                             <div class="sensor-title">Rinse Blower</div>
                             <div class="sensor-column">
@@ -143,69 +238,195 @@
                                     [ngClass]="(item.Rinse_Blower_R==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">
                                     Right
                                 </div>
+                            </div>
+                        </mat-card>
 
+                        <mat-card class="sensor">
+                            <div class="sensor-title">Pre-Roller</div>
+                            <div class="sensor-column">
+                                <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
+                                    [ngClass]="(item.PreRoller_LT==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">LT
+                                </div>
+                                <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
+                                    [ngClass]="(item.PreRoller_RT==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">RT
+                                </div>
+                                <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
+                                    [ngClass]="(item.PreRoller_LB==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">LB
+                                </div>
+                                <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
+                                    [ngClass]="(item.PreRoller_RB==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">RB
+                                </div>
                             </div>
                         </mat-card>
-                        <mat-card class="sensor">
-                            <div class="sensor-title">Main Chain Amp</div>
-                            <div class="sensor-column">
-                                <div class="sensor-value bg-Good">{{item.Motor_Amp_Top}}</div>
-                                <div class="sensor-value bg-Good">{{item.Motor_Amp_Bottom}}</div>
 
+                        <!-- Hardcoded -->
+                        <mat-card class="sensor">
+                            <div class="sensor-title">Coagulant Tank</div>
+                            <div class="sensor-column">
+                                <div [routerLink]="['lineinfo',line_name+'&Coagulant Tank']"
+                                    class="sensor-value bg-Good">Tank</div>
                             </div>
                         </mat-card>
+
+                        <!-- Hardcoded -->
                         <mat-card class="sensor">
-                            <div class="sensor-title">Latex Level</div>
+                            <div class="sensor-title">Latex Tank</div>
                             <div class="sensor-column">
-                                <div class="sensor-value bg-Good">{{item.Latex_Level}}</div>
+                                <div [routerLink]="['lineinfo',line_name+'&Latex Tank']" class="sensor-value bg-Good">
+                                    Tank</div>
                             </div>
                         </mat-card>
-                        <mat-card class="sensor">
-                            <div class="sensor-title">Chlorine Level</div>
-                            <div class="sensor-column">
-                                <div class="sensor-value bg-Good">{{item.Chlorine_Level_PV}}</div>
-                            </div>
+
+                    </mat-tab>
+
+                    <mat-tab class="line-tabs" label="Summary" *ngFor="let item of line_summary">
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.B_BurnerLockout>0">
+                            <span matBadge="{{item.B_BurnerLockout}}" matBadgeOverlap="false">B Burner</span>
                         </mat-card>
-                        <mat-card class="sensor">
-                            <div class="sensor-title">Coagulant Level</div>
-                            <div class="sensor-column">
-                                <div class="sensor-value bg-Bad">{{item.CGT_Level}}</div>
-                            </div>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.C_BurnerLockout>0">
+                            <span matBadge="{{item.C_BurnerLockout}}" matBadgeOverlap="false">C Burner</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.D_BurnerLockout>0">
+                            <span matBadge="{{item.D_BurnerLockout}}" matBadgeOverlap="false">D Burner</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Z1_BurnerLockout>0">
+                            <span matBadge="{{item.Z1_BurnerLockout}}" matBadgeOverlap="false">Z1 Burner</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Z2_BurnerLockout>0">
+                            <span matBadge="{{item.Z2_BurnerLockout}}" matBadgeOverlap="false">Z2 Burner</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Z3_BurnerLockout>0">
+                            <span matBadge="{{item.Z3_BurnerLockout}}" matBadgeOverlap="false">Z3 Burner</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Z4_BurnerLockout>0">
+                            <span matBadge="{{item.Z4_BurnerLockout}}" matBadgeOverlap="false">Z4 Burner</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Z5_BurnerLockout>0">
+                            <span matBadge="{{item.Z5_BurnerLockout}}" matBadgeOverlap="false">Z5 Burner</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.B_Oven>0">
+                            <span matBadge="{{item.B_Oven}}" matBadgeOverlap="false">B Oven</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.C_Oven>0">
+                            <span matBadge="{{item.C_Oven}}" matBadgeOverlap="false">C Oven</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.D_Oven>0">
+                            <span matBadge="{{item.D_Oven}}" matBadgeOverlap="false">D Oven</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Z1_Oven>0">
+                            <span matBadge="{{item.Z1_Oven}}" matBadgeOverlap="false">Z1 Oven</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Z2_Oven>0">
+                            <span matBadge="{{item.Z2_Oven}}" matBadgeOverlap="false">Z2 Oven</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Z3_Oven>0">
+                            <span matBadge="{{item.Z3_Oven}}" matBadgeOverlap="false">Z3 Oven</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Z4_Oven>0">
+                            <span matBadge="{{item.Z4_Oven}}" matBadgeOverlap="false">Z4 Oven</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Z5_Oven>0">
+                            <span matBadge="{{item.Z5_Oven}}" matBadgeOverlap="false">Z5 Oven</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.PreRoller_LT>0">
+                            <span matBadge="{{item.PreRoller_LT}}" matBadgeOverlap="false">PreRoller LT</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.PreRoller_LB>0">
+                            <span matBadge="{{item.PreRoller_LB}}" matBadgeOverlap="false">PreRoller LB</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.PreRoller_RT>0">
+                            <span matBadge="{{item.PreRoller_RT}}" matBadgeOverlap="false">PreRoller RT</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.PreRoller_RB>0">
+                            <span matBadge="{{item.PreRoller_RB}}" matBadgeOverlap="false">PreRoller RB</span>
+                        </mat-card>
+
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Beading_Motor_LT>0">
+                            <span matBadge="{{item.Beading_Motor_LT}}" matBadgeOverlap="false">BeadingMotor LT</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Beading_Motor_LB>0">
+                            <span matBadge="{{item.Beading_Motor_LB}}" matBadgeOverlap="false">BeadingMotor LB</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Beading_Motor_RT>0">
+                            <span matBadge="{{item.Beading_Motor_RT}}" matBadgeOverlap="false">BeadingMotor RT</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Beading_Motor_RB>0">
+                            <span matBadge="{{item.Beading_Motor_RB}}" matBadgeOverlap="false">BeadingMotor RB</span>
+                        </mat-card>
+
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.CleaningBrush_L>0">
+                            <span matBadge="{{item.CleaningBrush_L}}" matBadgeOverlap="false">CleaningBrush Left</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.CleaningBrush_R>0">
+                            <span matBadge="{{item.CleaningBrush_R}}" matBadgeOverlap="false">CleaningBrush Right</span>
+                        </mat-card>
+
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Rinse_Blower_L>0">
+                            <span matBadge="{{item.Rinse_Blower_L}}" matBadgeOverlap="false">Rine Blower Left</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Rinse_Blower_R>0">
+                            <span matBadge="{{item.Rinse_Blower_R}}" matBadgeOverlap="false">Rine Blower Right</span>
+                        </mat-card>
+
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.MC_TOP>0">
+                            <span matBadge="{{item.MC_TOP}}" matBadgeOverlap="false">Main Chain Amp Top</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.MC_BOTTOM>0">
+                            <span matBadge="{{item.MC_BOTTOM}}" matBadgeOverlap="false">Main Chain Amp Bottom</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Latex_Status>0">
+                            <span matBadge="{{item.Latex_Status}}" matBadgeOverlap="false">Latex Level</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Chlorine_Status>0">
+                            <span matBadge="{{item.Chlorine_Status}}" matBadgeOverlap="false">Chlorine Level</span>
+                        </mat-card>
+                        <mat-card class="sensor summarySensor" [class.dShow]="item.Rinse_Blower_R>0">
+                            <span matBadge="{{item.CGT_Status}}" matBadgeOverlap="false">Coagulant Level</span>
                         </mat-card>
                     </mat-tab>
-                    <!-- <mat-tab class="line-tabs" label="Summary" *ngFor="let item of line_summary" >
-                        <mat-card class="sensor">
-                            <span matBadge="{{item.lt_alaram}}" matBadgeOverlap="false">Low Temperature Alarm</span>
-                        </mat-card>
-                        <mat-card class="sensor">
-                            <span matBadge="{{item.mc_amp_top}}" matBadgeOverlap="false">Main Chain Amp Top</span>
-                        </mat-card>
-                        <mat-card class="sensor">
-                            <span matBadge="{{item.mc_amp_bottom}}" matBadgeOverlap="false">Main Chain Amp Bottom</span>
-                        </mat-card>
-                        <mat-card class="sensor">
-                            <span matBadge="{{item.ch_level}}" matBadgeOverlap="false">Chlorine Level</span>
-                        </mat-card>
-                    </mat-tab> -->
+
                 </mat-tab-group>
             </div>
 
         </mat-card>
     </div>
 
-    <!-- <div class="info-btn">
-        .
-    </div> -->
+    <div class="collapseBtn" (click)="setCollapse()"><i class="fas fa-ellipsis-v"></i></div>
 
-    <div id="lineSummary" *ngIf="Linedata != null" class="clMain line-summary">
+    <div id="lineSummary" *ngIf="Linedata != null" class="clMain line-summary" [class.dShow]="collapseStatus==true">
         <mat-tab-group mat-stretch-tabs class="fwidth line-tabs" *ngFor="let item of Linedata">
+
             <mat-tab class="line-tabs" label="{{line_name}}">
+
                 <mat-card class="sensor">
-                    <div class="sensor-title">Burner Report</div>
+                    <div class="sensor-title">Main Chain Amp</div>
+                    <div class="sensor-column">
+                        <div [routerLink]="['lineinfo',line_name+'&Main Chain Amp Top']" class="sensor-value bg-Good">
+                            Top</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Main Chain Amp Bottom']"
+                            class="sensor-value bg-Good">Bottom</div>
+                    </div>
+                </mat-card>
+
+                <!-- harcoded -->
+                <mat-card class="sensor">
+                    <div class="sensor-title">Energy Consumption - Gas and Electricity </div>
+                    <div class="sensor-column">
+                        <div [routerLink]="['lineinfo',line_name+'&Gas A']" class="sensor-value bg-Good">Gas A</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Gas B_BurnerLockout']" class="sensor-value bg-Bad">
+                            Gas B</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Electricity A']" class="sensor-value bg-Good">
+                            Electricity A</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Electricity B']" class="sensor-value bg-Good">
+                            Electricity B</div>
+                    </div>
+                </mat-card>
+
+                <mat-card class="sensor">
+                    <div class="sensor-title">Burner Lockout</div>
                     <div class="sensor-column">
                         <div [routerLink]="['lineinfo',line_name+'&Burner Lockout']"
                             [ngClass]="(item.B_Burner_Lockout==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">B</div>
-                        <!-- <div (click)="linehistory('Burner Lockout')" [ngClass]="(item.B_Burner_Lockout==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">B</div>                     -->
                         <div [routerLink]="['lineinfo',line_name+'&Burner Lockout']"
                             [ngClass]="(item.C_Burner_Lockout==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">C</div>
                         <div [routerLink]="['lineinfo',line_name+'&Burner Lockout']"
@@ -227,6 +448,22 @@
                         </div>
                     </div>
                 </mat-card>
+
+                <!-- harcoded -->
+                <mat-card class="sensor">
+                    <div class="sensor-title">Oven Temperature </div>
+                    <div class="sensor-column">
+                        <div class="sensor-value bg-Good">B</div>
+                        <div class="sensor-value bg-Bad">C</div>
+                        <div class="sensor-value bg-Good">D</div>
+                        <div class="sensor-value bg-Good">Z1</div>
+                        <div class="sensor-value bg-Bad">Z2</div>
+                        <div class="sensor-value bg-Good">Z3</div>
+                        <div class="sensor-value bg-Good">Z4</div>
+                        <div class="sensor-value bg-Good">Z5</div>
+                    </div>
+                </mat-card>
+
                 <mat-card class="sensor">
                     <div class="sensor-title">Low Temperature Alarm</div>
                     <div class="sensor-column">
@@ -240,22 +477,70 @@
                         <div [ngClass]="(item.Z3_Burner_Temp==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">Z3</div>
                         <div [ngClass]="(item.Z4_Burner_Temp==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">Z4</div>
                         <div [ngClass]="(item.Z5_Burner_Temp==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">Z5</div>
+                    </div>
+                </mat-card>
 
-                    </div>
-                </mat-card>
+                <!-- harcoded -->
                 <mat-card class="sensor">
-                    <div class="sensor-title">Pre-Roller</div>
+                    <div class="sensor-title">Acid </div>
                     <div class="sensor-column">
-                        <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
-                            [ngClass]="(item.PreRoller_LT==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">LT</div>
-                        <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
-                            [ngClass]="(item.PreRoller_RT==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">RT</div>
-                        <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
-                            [ngClass]="(item.PreRoller_LB==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">LB</div>
-                        <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
-                            [ngClass]="(item.PreRoller_RB==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">RB</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Acid 1']" class="sensor-value bg-Bad">1</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Acid 2']" class="sensor-value bg-Good">2</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Acid Bath']" class="sensor-value bg-Good">bath</div>
                     </div>
                 </mat-card>
+
+                <!-- harcoded -->
+                <mat-card class="sensor">
+                    <div class="sensor-title">Alkaline </div>
+                    <div class="sensor-column">
+                        <div [routerLink]="['lineinfo',line_name+'&Alkaline 1']" class="sensor-value bg-Good">1</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Alkaline 2']" class="sensor-value bg-Good">2</div>
+                    </div>
+                </mat-card>
+
+                <!-- harcoded -->
+                <mat-card class="sensor">
+                    <div class="sensor-title">Hot </div>
+                    <div class="sensor-column">
+                        <div [routerLink]="['lineinfo',line_name+'&Hot Bath']" class="sensor-value bg-Good">Bath</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Hot Rinse']" class="sensor-value bg-Good">Rinse</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Hot Water']" class="sensor-value bg-Good">Water</div>
+                    </div>
+                </mat-card>
+
+                <mat-card class="sensor">
+                    <div class="sensor-title">Cleaning Brush Motor</div>
+                    <div class="sensor-column">
+                        <div [routerLink]="['lineinfo',line_name+'&Cleaning Brush Motor']"
+                            [ngClass]="(item.Brush_Motor_L==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">Left</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Cleaning Brush Motor']"
+                            [ngClass]="(item.Brush_Motor_R==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">Right</div>
+                    </div>
+                </mat-card>
+
+                <!-- Hardcoded -->
+                <mat-card class="sensor">
+                    <div class="sensor-title">Coagulant</div>
+                    <div class="sensor-column">
+                        <div [routerLink]="['lineinfo',line_name+'&Coagulant Level']" class="sensor-value bg-Good">Level
+                        </div>
+                        <div [routerLink]="['lineinfo',line_name+'&Coagulant Temperature']"
+                            class="sensor-value bg-Good">Temperature</div>
+                    </div>
+                </mat-card>
+
+                <!-- Hardcoded -->
+                <mat-card class="sensor">
+                    <div class="sensor-title">Latex</div>
+                    <div class="sensor-column">
+                        <div [routerLink]="['lineinfo',line_name+'&Latex Level']" class="sensor-value bg-Good">Level
+                        </div>
+                        <div [routerLink]="['lineinfo',line_name+'&Latex Temperature']" class="sensor-value bg-Good">
+                            Temperature</div>
+                    </div>
+                </mat-card>
+
                 <mat-card class="sensor">
                     <div class="sensor-title">Beading Motor</div>
                     <div class="sensor-column">
@@ -270,16 +555,15 @@
 
                     </div>
                 </mat-card>
-                <mat-card class="sensor">
-                    <div class="sensor-title">Cleaning Brush Motor</div>
-                    <div class="sensor-column">
-                        <div [routerLink]="['lineinfo',line_name+'&Cleaning Brush Motor']"
-                            [ngClass]="(item.Brush_Motor_L==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">Left</div>
-                        <div [routerLink]="['lineinfo',line_name+'&Cleaning Brush Motor']"
-                            [ngClass]="(item.Brush_Motor_R==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">Right</div>
 
+                <mat-card class="sensor">
+                    <div class="sensor-title">Chlorine Level</div>
+                    <div class="sensor-column">
+                        <div [routerLink]="['lineinfo',line_name+'&Chlorine Level']" class="sensor-value bg-Good">Level
+                        </div>
                     </div>
                 </mat-card>
+
                 <mat-card class="sensor">
                     <div class="sensor-title">Rinse Blower</div>
                     <div class="sensor-column">
@@ -288,155 +572,148 @@
                         <div [routerLink]="['lineinfo',line_name+'&Rinse Blower']"
                             [ngClass]="(item.Rinse_Blower_R==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">Right
                         </div>
+                    </div>
+                </mat-card>
 
+                <mat-card class="sensor">
+                    <div class="sensor-title">Pre-Roller</div>
+                    <div class="sensor-column">
+                        <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
+                            [ngClass]="(item.PreRoller_LT==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">LT</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
+                            [ngClass]="(item.PreRoller_RT==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">RT</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
+                            [ngClass]="(item.PreRoller_LB==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">LB</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Pre-Roller Motor']"
+                            [ngClass]="(item.PreRoller_RB==0)?'sensor-value bg-Good':'sensor-value bg-Bad'">RB</div>
                     </div>
                 </mat-card>
-                <mat-card class="sensor">
-                    <div class="sensor-title">Main Chain Amp</div>
-                    <div class="sensor-column">
-                        <div class="sensor-value bg-Good">{{item.Motor_Amp_Top}}</div>
-                        <div class="sensor-value bg-Good">{{item.Motor_Amp_Bottom}}</div>
 
-                    </div>
-                </mat-card>
+                <!-- Hardcoded -->
                 <mat-card class="sensor">
-                    <div class="sensor-title">Latex Level</div>
+                    <div class="sensor-title">Coagulant Tank</div>
                     <div class="sensor-column">
-                        <div class="sensor-value bg-Good">{{item.Latex_Level}}</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Coagulant Tank']" class="sensor-value bg-Good">Tank
+                        </div>
                     </div>
                 </mat-card>
+
+                <!-- Hardcoded -->
                 <mat-card class="sensor">
-                    <div class="sensor-title">Chlorine Level</div>
+                    <div class="sensor-title">Latex Tank</div>
                     <div class="sensor-column">
-                        <div class="sensor-value bg-Good">{{item.Chlorine_Level_PV}}</div>
+                        <div [routerLink]="['lineinfo',line_name+'&Latex Tank']" class="sensor-value bg-Good">Tank</div>
                     </div>
                 </mat-card>
-                <mat-card class="sensor">
-                    <div class="sensor-title">Coagulant Level</div>
-                    <div class="sensor-column">
-                        <div class="sensor-value bg-Bad">{{item.CGT_Level}}</div>
-                    </div>
-                </mat-card>
+
             </mat-tab>
-            <!-- <mat-tab class="line-tabs" label="Summary">
-                <mat-card class="sensor">
-                    <span matBadge="21" matBadgeOverlap="false">Low Temperature Alarm</span>
-                </mat-card>
-                <mat-card class="sensor">
-                    <span matBadge="89" matBadgeOverlap="false">Main Chain Amp Top</span>
-                </mat-card>
-                <mat-card class="sensor">
-                    <span matBadge="67" matBadgeOverlap="false">Main Chain Amp Bottom</span>
-                </mat-card>
-                <mat-card class="sensor">
-                    <span matBadge="109" matBadgeOverlap="false">Chlorine Level</span>
-                </mat-card>
-            </mat-tab> -->
-            <mat-tab class="line-tabs" label="Summary" *ngFor="let item of line_summary" >
-                <mat-card class="sensor">
+
+            <mat-tab class="line-tabs" label="Summary" *ngFor="let item of line_summary">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.B_BurnerLockout>0">
                     <span matBadge="{{item.B_BurnerLockout}}" matBadgeOverlap="false">B Burner</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.C_BurnerLockout>0">
                     <span matBadge="{{item.C_BurnerLockout}}" matBadgeOverlap="false">C Burner</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.D_BurnerLockout>0">
                     <span matBadge="{{item.D_BurnerLockout}}" matBadgeOverlap="false">D Burner</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Z1_BurnerLockout>0">
                     <span matBadge="{{item.Z1_BurnerLockout}}" matBadgeOverlap="false">Z1 Burner</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Z2_BurnerLockout>0">
                     <span matBadge="{{item.Z2_BurnerLockout}}" matBadgeOverlap="false">Z2 Burner</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Z3_BurnerLockout>0">
                     <span matBadge="{{item.Z3_BurnerLockout}}" matBadgeOverlap="false">Z3 Burner</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Z4_BurnerLockout>0">
                     <span matBadge="{{item.Z4_BurnerLockout}}" matBadgeOverlap="false">Z4 Burner</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Z5_BurnerLockout>0">
                     <span matBadge="{{item.Z5_BurnerLockout}}" matBadgeOverlap="false">Z5 Burner</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.B_Oven>0">
                     <span matBadge="{{item.B_Oven}}" matBadgeOverlap="false">B Oven</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.C_Oven>0">
                     <span matBadge="{{item.C_Oven}}" matBadgeOverlap="false">C Oven</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.D_Oven>0">
                     <span matBadge="{{item.D_Oven}}" matBadgeOverlap="false">D Oven</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Z1_Oven>0">
                     <span matBadge="{{item.Z1_Oven}}" matBadgeOverlap="false">Z1 Oven</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Z2_Oven>0">
                     <span matBadge="{{item.Z2_Oven}}" matBadgeOverlap="false">Z2 Oven</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Z3_Oven>0">
                     <span matBadge="{{item.Z3_Oven}}" matBadgeOverlap="false">Z3 Oven</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Z4_Oven>0">
                     <span matBadge="{{item.Z4_Oven}}" matBadgeOverlap="false">Z4 Oven</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Z5_Oven>0">
                     <span matBadge="{{item.Z5_Oven}}" matBadgeOverlap="false">Z5 Oven</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.PreRoller_LT>0">
                     <span matBadge="{{item.PreRoller_LT}}" matBadgeOverlap="false">PreRoller LT</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.PreRoller_LB>0">
                     <span matBadge="{{item.PreRoller_LB}}" matBadgeOverlap="false">PreRoller LB</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.PreRoller_RT>0">
                     <span matBadge="{{item.PreRoller_RT}}" matBadgeOverlap="false">PreRoller RT</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.PreRoller_RB>0">
                     <span matBadge="{{item.PreRoller_RB}}" matBadgeOverlap="false">PreRoller RB</span>
                 </mat-card>
 
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Beading_Motor_LT>0">
                     <span matBadge="{{item.Beading_Motor_LT}}" matBadgeOverlap="false">BeadingMotor LT</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Beading_Motor_LB>0">
                     <span matBadge="{{item.Beading_Motor_LB}}" matBadgeOverlap="false">BeadingMotor LB</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Beading_Motor_RT>0">
                     <span matBadge="{{item.Beading_Motor_RT}}" matBadgeOverlap="false">BeadingMotor RT</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Beading_Motor_RB>0">
                     <span matBadge="{{item.Beading_Motor_RB}}" matBadgeOverlap="false">BeadingMotor RB</span>
                 </mat-card>
 
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.CleaningBrush_L>0">
                     <span matBadge="{{item.CleaningBrush_L}}" matBadgeOverlap="false">CleaningBrush Left</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.CleaningBrush_R>0">
                     <span matBadge="{{item.CleaningBrush_R}}" matBadgeOverlap="false">CleaningBrush Right</span>
                 </mat-card>
 
-                <mat-card class="sensor">
-                    <span matBadge="{{item.CleaningBrush_L}}" matBadgeOverlap="false">Rine Blower Left</span>
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Rinse_Blower_L>0">
+                    <span matBadge="{{item.Rinse_Blower_L}}" matBadgeOverlap="false">Rine Blower Left</span>
                 </mat-card>
-                <mat-card class="sensor">
-                    <span matBadge="{{item.CleaningBrush_R}}" matBadgeOverlap="false">Rine Blower Right</span>
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Rinse_Blower_R>0">
+                    <span matBadge="{{item.Rinse_Blower_R}}" matBadgeOverlap="false">Rine Blower Right</span>
                 </mat-card>
 
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.MC_TOP>0">
                     <span matBadge="{{item.MC_TOP}}" matBadgeOverlap="false">Main Chain Amp Top</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.MC_BOTTOM>0">
                     <span matBadge="{{item.MC_BOTTOM}}" matBadgeOverlap="false">Main Chain Amp Bottom</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Latex_Status>0">
                     <span matBadge="{{item.Latex_Status}}" matBadgeOverlap="false">Latex Level</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Chlorine_Status>0">
                     <span matBadge="{{item.Chlorine_Status}}" matBadgeOverlap="false">Chlorine Level</span>
                 </mat-card>
-                <mat-card class="sensor">
+                <mat-card class="sensor summarySensor" [class.dShow]="item.Rinse_Blower_R>0">
                     <span matBadge="{{item.CGT_Status}}" matBadgeOverlap="false">Coagulant Level</span>
                 </mat-card>
             </mat-tab>
+
         </mat-tab-group>
     </div>
 

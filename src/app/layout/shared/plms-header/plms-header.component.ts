@@ -32,4 +32,10 @@ export class PLMSHeaderComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  logOutStatus:boolean = false;
+  setLogOutStatus(){
+    this.logOutStatus = !this.logOutStatus;
+  }
+
+
 }

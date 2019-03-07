@@ -13,3 +13,19 @@
 </div>
 
 
+<!--mobile plant nav-->
+<div class="mobile-plant-Nav">
+  <mat-card class="mobilePlantBtn" (click)="mplSelectBool()">Plant {{SelectedPlant}}</mat-card>
+
+  <div class="mobilePlantNav" [class.dShow]="mplStatus==true">    
+
+    <mat-card class="plant-Nav-Btn" *ngFor="let item of data" [style.backgroundColor]="categoryColor"
+    (click)="setActiveNav(item.Id);mplSelectBool()" [class.active]="item.Id==SelectedPlant" [routerLink] = "['/MainScreen/home',item.Id]" >
+    <div class="plant-label">{{item.Id}}</div>
+  </mat-card>
+    
+  </div>
+
+</div>
+
+
